@@ -120,7 +120,7 @@
                 <h1 class="text-2xl font-extrabold font-luxury tracking-wider uppercase mt-4">
                     <span class="gold-text-gradient">SMPN 4 MONTA</span>
                 </h1>
-                <p class="text-gray-400 mt-2 font-medium text-xs tracking-widest uppercase">Sistem Presensi & Monitoring</p>
+                <p class="text-gray-400 mt-2 font-medium text-xs tracking-widest uppercase">Sistem Presensi Guru & Pegawai</p>
                 <div class="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#BF953F] to-transparent mx-auto mt-4"></div>
             </div>
 
@@ -178,7 +178,7 @@
         <div class="luxury-card p-8 md:p-10 rounded-[2.5rem] w-full max-w-md text-left fade-in relative z-10 gold-border-gradient">
             <div class="text-center mb-6">
                 <h2 class="text-xl font-extrabold font-luxury tracking-wider uppercase">
-                    <span class="gold-text-gradient">Pendaftaran Mandiri Staf</span>
+                    <span class="gold-text-gradient">Pendaftaran Mandiri</span>
                 </h2>
                 <p class="text-gray-400 mt-1 font-medium text-[10px] tracking-widest uppercase">Akun memerlukan persetujuan admin sebelum dapat digunakan</p>
             </div>
@@ -200,6 +200,23 @@
                     <label class="text-[10px] font-black text-[#BF953F] uppercase tracking-widest ml-1 mb-1 block">Password (Min. 6 Karakter)</label>
                     <input type="password" id="self-reg-pass" class="w-full px-4 py-3 luxury-input rounded-xl font-medium text-xs" placeholder="••••••••">
                 </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] font-black text-[#BF953F] uppercase tracking-widest ml-1 mb-1 block">Status</label>
+                        <select id="self-reg-status" class="w-full px-3 py-3 luxury-input rounded-xl font-medium text-xs">
+                            <option value="Guru">Guru</option>
+                            <option value="Teknik">Teknik</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-[#BF953F] uppercase tracking-widest ml-1 mb-1 block">Bagian</label>
+                        <select id="self-reg-bagian" class="w-full px-3 py-3 luxury-input rounded-xl font-medium text-xs">
+                            <option value="TU">TU (Tata Usaha)</option>
+                            <option value="Perpustakaan">Perpustakaan</option>
+                            <option value="Lainnya">-</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="flex gap-3 pt-2">
                     <button onclick="handleSelfRegister()" id="btn-self-reg" class="flex-1 gold-bg-gradient text-black font-black py-3 rounded-xl shadow-lg active-scale uppercase tracking-widest text-xs">Daftar Akun</button>
@@ -218,7 +235,7 @@
                 </div>
                 <div>
                     <h2 class="text-sm font-black font-luxury tracking-widest leading-none gold-text-gradient">SMPN 4 MONTA</h2>
-                    <span id="user-email-mobile" class="text-[8px] text-gray-400 font-bold uppercase tracking-widest block mt-1">Presensi </span>
+                    <span id="user-email-mobile" class="text-[8px] text-gray-400 font-bold uppercase tracking-widest block mt-1">Presensi</span>
                 </div>
             </div>
     
@@ -311,7 +328,7 @@
                     <div id="approval-box" class="luxury-card p-5 rounded-3xl border border-amber-500/40 bg-amber-950/20 hidden">
                         <h4 class="font-black text-amber-400 flex items-center gap-2 uppercase text-xs tracking-widest mb-3">
                             <i class="fa-solid fa-user-clock text-amber-400 text-sm"></i>
-                            Permintaan Persetujuan Pendaftaran Akun Staf/Guru
+                            Permintaan Persetujuan Pendaftaran Akun
                         </h4>
                         <div id="approval-list" class="space-y-3">
                         </div>
@@ -340,11 +357,11 @@
                         <div class="p-5 border-b border-white/5 flex flex-col sm:flex-row justify-between items-center px-6 gap-3 bg-white/2">
                             <h4 class="font-black text-white flex items-center gap-2 uppercase text-xs tracking-widest">
                                 <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full pulse-gold"></span>
-                                Monitoring Aktivitas Kehadiran, Jurnal, TU & Perpustakaan
+                                Monitoring Aktivitas (Guru, TU & Perpustakaan)
                             </h4>
                             <div class="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
-                                <select id="filter-bagian-monitor" onchange="filterMonitor()" class="text-xs px-3 py-2 luxury-input rounded-xl bg-[#121214] text-white font-medium cursor-pointer">
-                                    <option value="semua">Semua Bagian</option>
+                                <select id="filter-bagian" onchange="filterMonitor()" class="text-xs px-3 py-2 luxury-input rounded-xl bg-[#121214] text-white font-medium cursor-pointer">
+                                    <option value="semua">Semua Bagian / Status</option>
                                     <option value="Guru">Guru</option>
                                     <option value="Teknik">Teknik</option>
                                     <option value="TU">TU (Tata Usaha)</option>
@@ -361,7 +378,7 @@
                                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                                         <i class="fa-solid fa-magnifying-glass text-xs"></i>
                                     </span>
-                                    <input type="text" id="search-monitor" oninput="filterMonitor()" placeholder="Cari nama..." class="text-xs pl-8 pr-4 py-2 w-full sm:w-44 luxury-input rounded-xl">
+                                    <input type="text" id="search-monitor" oninput="filterMonitor()" placeholder="Cari nama..." class="text-xs pl-8 pr-4 py-2 w-full sm:w-48 luxury-input rounded-xl">
                                 </div>
                             </div>
                         </div>
@@ -369,11 +386,11 @@
                             <table class="w-full text-left border-collapse">
                                 <thead class="bg-[#16161a] sticky top-0 text-[9px] font-black text-gray-400 uppercase tracking-widest border-b border-white/5 z-10">
                                     <tr>
-                                        <th class="px-6 py-4">Waktu Absen</th>
+                                        <th class="px-6 py-4">Hari, Tanggal & Jam</th>
                                         <th class="px-6 py-4">Nama</th>
                                         <th class="px-6 py-4">Status & Bagian</th>
                                         <th class="px-6 py-4 text-center">Kehadiran</th>
-                                        <th class="px-6 py-4">Jurnal / Keterangan</th>
+                                        <th class="px-6 py-4">Keterangan</th>
                                         <th class="px-6 py-4 text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -421,124 +438,120 @@
                 </div>
 
                 <div id="section-guru" class="hidden space-y-5 fade-in pb-10">
-                    
-                    <div class="luxury-card p-6 md:p-8 rounded-[2rem] shadow-2xl border border-[#BF953F]/30">
-                        <h3 class="text-lg font-black font-luxury text-white mb-2 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-user-pen text-[#BF953F]"></i>
-                            <span class="gold-text-gradient">Edit Profil & Pengaturan Bagian</span>
-                        </h3>
-                        <p class="text-xs text-gray-400 mb-6">Perbarui nama lengkap, status kepegawaian, serta bagian tempat Anda bertugas di sekolah.</p>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                            <div>
-                                <label class="text-[10px] font-black text-[#BF953F] uppercase tracking-widest mb-1 block">Nama Lengkap & Gelar</label>
-                                <input type="text" id="edit-profile-name" class="w-full px-4 py-3 luxury-input rounded-xl font-medium text-xs" placeholder="Nama Anda">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black text-[#BF953F] uppercase tracking-widest mb-1 block">Status</label>
-                                <select id="edit-profile-status" class="w-full px-4 py-3 luxury-input rounded-xl font-medium text-xs bg-[#121214] text-white">
-                                    <option value="Guru">Guru</option>
-                                    <option value="Teknik">Teknik</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black text-[#BF953F] uppercase tracking-widest mb-1 block">Bagian</label>
-                                <select id="edit-profile-bagian" class="w-full px-4 py-3 luxury-input rounded-xl font-medium text-xs bg-[#121214] text-white">
-                                    <option value="TU">TU (Tata Usaha)</option>
-                                    <option value="Perpustakaan">Perpustakaan</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button onclick="saveProfileChanges()" class="px-6 py-3 bg-[#BF953F] hover:bg-[#AA7C11] text-black font-black rounded-xl text-xs uppercase tracking-widest shadow-lg active-scale">
-                            Simpan Perubahan Profil
-                        </button>
-                    </div>
-
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                        <div class="luxury-card p-6 md:p-8 rounded-[2rem] shadow-2xl border border-[#BF953F]/25 relative flex flex-col justify-between">
+                        
+                        <div class="luxury-card p-6 md:p-8 rounded-[2rem] shadow-2xl border border-[#BF953F]/25 relative flex flex-col justify-between space-y-6">
                             <div>
                                 <h3 class="text-lg font-black font-luxury text-white mb-2 uppercase tracking-wider flex items-center gap-2">
-                                    <i class="fa-solid fa-qrcode text-[#BF953F]"></i>
-                                    <span class="gold-text-gradient">Kartu Presensi Barcode Saya</span>
+                                    <i class="fa-solid fa-id-card text-[#BF953F]"></i>
+                                    <span class="gold-text-gradient">Kartu & Edit Profil Saya</span>
                                 </h3>
-                                <p class="text-xs text-gray-400 mb-6">Tunjukkan kartu ini kepada admin atau scan pada mesin scanner saat tiba di sekolah.</p>
+                                <p class="text-xs text-gray-400 mb-4">Perbarui informasi Nama Lengkap, Status (Guru/Teknik), dan Bagian (TU/Perpustakaan) Anda di bawah ini.</p>
                                 
-                                <button onclick="openGuruBarcodeModal()" class="w-full gold-bg-gradient text-black font-black py-4 rounded-2xl shadow-xl flex items-center justify-center gap-3 hover:brightness-110 active-scale transition-all uppercase tracking-widest text-xs mb-6">
-                                    <i class="fa-solid fa-download"></i>
-                                    <span>Tampilkan / Cetak Barcode Saya</span>
+                                <div class="space-y-3 bg-black/30 p-4 rounded-2xl border border-white/5 mb-4">
+                                    <div>
+                                        <label class="text-[9px] font-black text-[#BF953F] uppercase tracking-widest mb-1 block">Edit Nama Lengkap</label>
+                                        <input type="text" id="edit-my-name" class="w-full px-3 py-2 luxury-input rounded-xl text-xs font-medium" placeholder="Nama Lengkap & Gelar">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            <label class="text-[9px] font-black text-[#BF953F] uppercase tracking-widest mb-1 block">Edit Status</label>
+                                            <select id="edit-my-status" class="w-full px-3 py-2 luxury-input rounded-xl text-xs font-medium">
+                                                <option value="Guru">Guru</option>
+                                                <option value="Teknik">Teknik</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="text-[9px] font-black text-[#BF953F] uppercase tracking-widest mb-1 block">Edit Bagian</label>
+                                            <select id="edit-my-bagian" class="w-full px-3 py-2 luxury-input rounded-xl text-xs font-medium">
+                                                <option value="TU">TU (Tata Usaha)</option>
+                                                <option value="Perpustakaan">Perpustakaan</option>
+                                                <option value="Lainnya">Lainnya</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button onclick="saveMyProfileChanges()" class="w-full bg-[#BF953F]/20 hover:bg-[#BF953F]/30 text-[#BF953F] font-black py-2.5 rounded-xl border border-[#BF953F]/40 text-xs uppercase tracking-widest active-scale transition-all">
+                                        Simpan Perubahan Profil
+                                    </button>
+                                </div>
+
+                                <button onclick="openGuruBarcodeModal()" class="w-full gold-bg-gradient text-black font-black py-3.5 rounded-2xl shadow-xl flex items-center justify-center gap-3 hover:brightness-110 active-scale transition-all uppercase tracking-widest text-xs">
+                                    <i class="fa-solid fa-qrcode"></i>
+                                    <span>Tampilkan Barcode Saya</span>
                                 </button>
                             </div>
 
-                            <div id="guru-barcode-preview-box" class="hidden p-6 rounded-2xl bg-black/50 border border-[#BF953F]/30 text-center space-y-3">
-                                <h4 class="font-luxury font-black text-sm gold-text-gradient uppercase">Barcode Presensi</h4>
+                            <div id="guru-barcode-preview-box" class="hidden p-5 rounded-2xl bg-black/50 border border-[#BF953F]/30 text-center space-y-3">
+                                <h4 class="font-luxury font-black text-xs gold-text-gradient uppercase">Barcode Presensi Saya</h4>
                                 <p id="guru-card-name-text" class="font-bold text-white text-xs uppercase"></p>
-                                <div id="guru-qrcode-render" class="bg-white p-3 rounded-xl inline-block mx-auto shadow-xl"></div>
+                                <div id="guru-qrcode-render" class="bg-white p-2.5 rounded-xl inline-block mx-auto shadow-xl"></div>
                                 <div>
-                                    <button onclick="printMyBarcode()" class="px-5 py-2.5 bg-[#BF953F] hover:bg-[#AA7C11] text-black font-bold rounded-xl text-xs uppercase tracking-widest shadow-lg">
+                                    <button onclick="printMyBarcode()" class="px-4 py-2 bg-[#BF953F] hover:bg-[#AA7C11] text-black font-bold rounded-xl text-[10px] uppercase tracking-widest shadow-lg">
                                         <i class="fa-solid fa-print mr-1"></i> Cetak Kartu
                                     </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="luxury-card p-6 md:p-8 rounded-[2rem] shadow-2xl border border-[#BF953F]/25 relative">
-                            <h3 class="text-lg font-black font-luxury text-white mb-2 uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-envelope-open-text text-[#BF953F]"></i>
-                                <span class="gold-text-gradient">Form Jurnal Mengajar / Izin / Sakit</span>
-                            </h3>
-                            <p class="text-xs text-gray-400 mb-6">Kirimkan jurnal kegiatan, catatan mengajar, atau pengajuan izin/sakit melalui form di bawah ini.</p>
-                            
-                            <form id="absensi-form" class="space-y-4">
-                                <div>
-                                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 block">Pilih Status Presensi</label>
-                                    <div class="grid grid-cols-3 gap-2">
-                                        <label class="cursor-pointer group relative">
-                                            <input type="radio" name="status" value="Hadir" checked class="peer hidden">
-                                            <div class="py-3 border border-white/10 rounded-xl text-center font-extrabold text-gray-400 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 peer-checked:text-emerald-400 text-[10px] uppercase tracking-wider active-scale">Hadir/Jurnal</div>
-                                        </label>
-                                        <label class="cursor-pointer group relative">
-                                            <input type="radio" name="status" value="Izin" class="peer hidden">
-                                            <div class="py-3 border border-white/10 rounded-xl text-center font-extrabold text-gray-400 peer-checked:border-amber-500 peer-checked:bg-amber-500/10 peer-checked:text-amber-400 text-[10px] uppercase tracking-wider active-scale">Izin</div>
-                                        </label>
-                                        <label class="cursor-pointer group relative">
-                                            <input type="radio" name="status" value="Sakit" class="peer hidden">
-                                            <div class="py-3 border border-white/10 rounded-xl text-center font-extrabold text-gray-400 peer-checked:border-rose-500 peer-checked:bg-rose-500/10 peer-checked:text-rose-400 text-[10px] uppercase tracking-wider active-scale">Sakit</div>
-                                        </label>
-                                    </div>
-                                </div>
+                        <div class="luxury-card p-6 md:p-8 rounded-[2rem] shadow-2xl border border-[#BF953F]/25 relative flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-lg font-black font-luxury text-white mb-2 uppercase tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-envelope-open-text text-[#BF953F]"></i>
+                                    <span class="gold-text-gradient">Form Pengajuan Izin / Sakit</span>
+                                </h3>
+                                <p class="text-xs text-gray-400 mb-4">Gunakan form berikut khusus jika Anda berhalangan hadir.</p>
                                 
-                                <div>
-                                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 block">Jurnal Mengajar / Catatan / Keterangan</label>
-                                    <textarea name="catatan" id="form-catatan" placeholder="Tuliskan jurnal kegiatan mengajar atau keterangan izin/sakit..." class="w-full px-4 py-3 luxury-input rounded-xl outline-none h-24 font-medium resize-none text-white text-xs placeholder-gray-600"></textarea>
+                                <form id="absensi-form" class="space-y-4">
+                                    <div>
+                                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2 block">Pilih Status Keterangan</label>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <label class="cursor-pointer group relative">
+                                                <input type="radio" name="status" value="Izin" checked class="peer hidden">
+                                                <div class="py-3 border border-white/10 rounded-xl text-center font-extrabold text-gray-400 peer-checked:border-amber-500 peer-checked:bg-amber-500/10 peer-checked:text-amber-400 transition-all text-xs uppercase tracking-widest active-scale">
+                                                    Izin
+                                                </div>
+                                            </label>
+                                            <label class="cursor-pointer group relative">
+                                                <input type="radio" name="status" value="Sakit" class="peer hidden">
+                                                <div class="py-3 border border-white/10 rounded-xl text-center font-extrabold text-gray-400 peer-checked:border-rose-500 peer-checked:bg-rose-500/10 peer-checked:text-rose-400 transition-all text-xs uppercase tracking-widest active-scale">
+                                                    Sakit
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 block">Catatan Keterangan</label>
+                                        <textarea name="catatan" rows="2" class="w-full px-3 py-2 luxury-input rounded-xl text-xs" placeholder="Tuliskan alasan lengkap..."></textarea>
+                                    </div>
+
+                                    <button type="submit" id="btn-submit-izin" class="w-full gold-bg-gradient text-black font-black py-3 rounded-xl shadow-lg active-scale uppercase tracking-widest text-xs">
+                                        Kirim Pengajuan
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-white/10">
+                                <h4 class="text-xs font-black text-white uppercase tracking-widest mb-3">Riwayat Presensi Pribadi</h4>
+                                <div id="guru-history" class="space-y-2 max-h-[160px] overflow-y-auto pr-1">
+                                    <p class="text-gray-500 text-xs italic text-center py-4">Memuat riwayat...</p>
                                 </div>
-
-                                <button type="submit" id="btn-absen" class="w-full gold-bg-gradient text-black font-black py-3.5 rounded-xl shadow-xl flex items-center justify-center gap-2 hover:brightness-110 active-scale transition-all uppercase tracking-widest text-xs">
-                                    <i class="fa-solid fa-paper-plane"></i>
-                                    <span>Kirim Jurnal & Absen</span>
-                                </button>
-                            </form>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="luxury-card p-6 md:p-8 rounded-[2rem] shadow-2xl flex flex-col border border-[#BF953F]/10">
-                        <h3 class="text-lg font-black font-luxury text-[#BF953F] mb-6 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-clock-rotate-left text-[#BF953F]"></i>
-                            <span class="gold-text-gradient">Riwayat Kehadiran & Jurnal Saya</span>
-                        </h3>
-                        <div id="guru-history" class="space-y-3 overflow-y-auto max-h-[300px] flex-1">
-                            <p class="text-gray-500 text-xs italic py-10 text-center">Belum ada riwayat presensi.</p>
-                        </div>
                     </div>
                 </div>
 
-                <div id="section-manage" class="hidden space-y-6 fade-in max-w-4xl mx-auto">
+                <div id="section-manage" class="hidden space-y-5 fade-in">
                     <div class="luxury-card p-6 md:p-8 rounded-[2.5rem] shadow-2xl border border-[#BF953F]/20 space-y-4">
-                        <h4 class="font-black text-white text-sm uppercase tracking-widest flex items-center gap-2">
-                            <i class="fa-solid fa-users-gear text-[#BF953F]"></i>
-                            Manajemen Akun Terdaftar & Persetujuan
-                        </h4>
-                        <div class="relative">
-                            <input type="text" id="search-akun-list" oninput="filterAkunList()" placeholder="Cari nama atau email akun..." class="text-xs px-4 py-3 w-full luxury-input rounded-xl">
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <h3 class="text-lg font-black font-luxury text-white uppercase tracking-wider gold-text-gradient">Manajemen Akun Pengguna & Hak Akses</h3>
+                            <div class="relative w-full sm:w-64">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                                </span>
+                                <input type="text" id="search-akun" oninput="filterAkunList()" placeholder="Cari nama atau email..." class="text-xs pl-8 pr-4 py-2.5 w-full luxury-input rounded-xl">
+                            </div>
                         </div>
                         <div class="overflow-x-auto max-h-[350px] overflow-y-auto">
                             <table class="w-full text-left border-collapse">
@@ -559,7 +572,7 @@
 
                     <div class="luxury-card p-6 md:p-8 rounded-[2.5rem] shadow-2xl border border-[#BF953F]/20 space-y-4">
                         <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                            <h4 class="font-black text-white text-sm uppercase tracking-widest">Daftar Kartu & QR Code</h4>
+                            <h4 class="font-black text-white text-sm uppercase tracking-widest">Daftar Kartu & QR Code Pegawai</h4>
                             <button onclick="printAllBarcodes()" class="px-5 py-3 gold-bg-gradient text-black font-black rounded-xl text-xs uppercase tracking-widest shadow-lg flex items-center gap-2 active-scale">
                                 <i class="fa-solid fa-print"></i>
                                 <span>Cetak Seluruh Barcode</span>
@@ -568,7 +581,7 @@
                         <div class="relative">
                             <input type="text" id="search-guru-list" oninput="filterGuruList()" placeholder="Cari data untuk cetak kartu..." class="text-xs px-4 py-3 w-full luxury-input rounded-xl">
                         </div>
-                        <div id="guru-card-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[350px] overflow-y-auto pr-2">
+                        <div id="guru-card-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[400px] overflow-y-auto p-2">
                         </div>
                     </div>
                 </div>
@@ -579,677 +592,795 @@
 
     <div id="printable-area"></div>
 
-    <footer class="w-full py-6 mt-10 border-t border-[#BF953F]/20 bg-[#0a0a0c]/90 text-center text-xs text-gray-400 relative z-20">
-        <div class="max-w-7xl mx-auto px-4 space-y-2">
-            <p class="font-extrabold font-luxury gold-text-gradient tracking-widest text-sm uppercase">PEMERINTAH KABUPATEN BIMA</p>
-            <p class="font-bold text-white text-xs uppercase tracking-wider">DINAS PENDIDIKAN, KEBUDAYAAN, PEMUDA DAN OLAHRAGA</p>
-            <p class="font-black text-[#BF953F] text-xs uppercase tracking-widest">SMP NEGERI 4 MONTA</p>
-            <p class="text-[10px] text-gray-400">Jl. Lintas-Tente-Parado, Desa Sakuru, Kec. Monta, Kab. Bima, NTB</p>
-            <div class="w-32 h-[1px] bg-gradient-to-r from-transparent via-[#BF953F] to-transparent mx-auto my-2"></div>
-            <p class="text-[9px] font-extrabold text-[#BF953F] uppercase tracking-[0.25em]">Sistem Informasi Presensi, Jurnal & Monitoring Terpadu</p>
-        </div>
-    </footer>
+    <div id="toast-container" class="fixed bottom-10 left-1/2 -translate-x-1/2 px-6 py-4 rounded-2xl text-white font-extrabold text-xs tracking-widest uppercase hidden z-[600] shadow-2xl transition-all duration-300 transform scale-95 border"></div>
 
-    <script>
-        // State Global Aplikasi
-        let currentUser = JSON.parse(localStorage.getItem('smpn4_current_user')) || null;
-        let teachers = JSON.parse(localStorage.getItem('smpn4_teachers')) || [
-            { id: 'GUR-001', name: 'Drs. H. Mukhtar, M.Pd.', email: 'admin@smpn4monta.sch.id', role: 'admin', status: 'Guru', bagian: 'TU', approved: true },
-            { id: 'GUR-002', name: 'Siti Aminah, S.Pd.', email: 'siti@smpn4monta.sch.id', role: 'guru', status: 'Guru', bagian: 'TU', approved: true },
-            { id: 'GUR-003', name: 'Ahmad Fauzi, S.Kom.', email: 'ahmad@smpn4monta.sch.id', role: 'guru', status: 'Teknik', bagian: 'Perpustakaan', approved: true }
-        ];
-        
-        let attendanceLog = JSON.parse(localStorage.getItem('smpn4_attendance')) || [];
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, doc, setDoc, updateDb, updateDoc, getDocs, onSnapshot, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDummyKeyForTemplateInitialization_998877",
+            authDomain: "smpn4monta-presensi.firebaseapp.com",
+            projectId: "smpn4monta-presensi",
+            storageBucket: "smpn4monta-presensi.appspot.com",
+            messagingSenderId: "1234567890",
+            appId: "1:1234567890:web:abcdef"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+        const appId = 'presensi-guru-v2';
+        const publicCollectionPath = ['artifacts', appId, 'public', 'data', 'absensi'];
+
+        let session = {
+            user: localStorage.getItem('guru_user'),
+            role: localStorage.getItem('guru_role'),
+            email: localStorage.getItem('guru_email'),
+            status: localStorage.getItem('guru_status') || 'Guru',
+            bagian: localStorage.getItem('guru_bagian') || 'TU',
+            photoURL: localStorage.getItem('guru_photo')
+        };
+
+        let monitorData = [];
+        let filteredMonitorData = [];
+        let registeredUsersCloud = [];
+        let allSystemUsersCloud = [];
         let html5QrCode = null;
-        let currentMode = 'monitor';
-        let scannerMode = 'camera';
+        let lastScannedCode = "";
+        let lastScanTime = 0;
+        let processedDocIds = new Set();
+        let isInitialLoad = true;
+        let activeScannerType = 'camera';
 
-        // Inisialisasi Saat Dokumen Dimuat
-        document.addEventListener('DOMContentLoaded', () => {
-            updateClock();
-            setInterval(updateClock, 1000);
-
-            if (currentUser) {
-                showApp();
-            } else {
-                showAuth();
+        function playSpeechAnnouncement(nama, status, catatan = "") {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                let text = "";
+                if (status.toLowerCase() === 'hadir') {
+                    text = `Selamat datang, ${nama} dengan status ${status}.`;
+                } else if (status.toLowerCase() === 'izin' || status.toLowerCase() === 'sakit') {
+                    text = `Perhatian, ${nama} mengajukan status ${status}.`;
+                    if (catatan) text += ` Keterangan: ${catatan}.`;
+                } else {
+                    text = `Perhatian, ${nama} dengan status ${status}.`;
+                }
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'id-ID';
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
             }
+        }
 
-            const absensiForm = document.getElementById('absensi-form');
-            if (absensiForm) {
-                absensiForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    submitGuruAttendance();
-                });
-            }
-
-            const usbInput = document.getElementById('usb-scanner-input');
-            if (usbInput) {
-                usbInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        processBarcode(usbInput.value.trim());
-                        usbInput.value = '';
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const email = user.email;
+                try {
+                    const q = query(collection(db, "users"), where("email", "==", email));
+                    const querySnapshot = await getDocs(q);
+                    if (!querySnapshot.empty) {
+                        const userData = querySnapshot.docs[0].data();
+                        if (userData.status === "ditolak") {
+                            await signOut(auth);
+                            showToast("Akses Anda telah ditolak oleh Admin.", "border-rose-500/30 bg-rose-950/90 text-rose-400");
+                            return;
+                        }
+                        if (userData.status === "pending") {
+                            await signOut(auth);
+                            showToast("Akun Anda sedang menunggu persetujuan Admin.", "border-amber-500/30 bg-amber-950/90 text-amber-400");
+                            return;
+                        }
+                        session = {
+                            user: userData.nama || user.displayName,
+                            role: userData.role === "admin" ? "Admin" : "Guru",
+                            email: email,
+                            status: userData.status_guru || 'Guru',
+                            bagian: userData.bagian || 'TU',
+                            photoURL: user.photoURL
+                        };
+                    } else {
+                        session = {
+                            user: user.displayName || "Pengguna",
+                            role: "Guru",
+                            email: email,
+                            status: "Guru",
+                            bagian: "TU",
+                            photoURL: user.photoURL
+                        };
                     }
-                });
+                    saveSessionToLocalStorage();
+                    showApp();
+                } catch (e) {
+                    console.error("Auth state sync error:", e);
+                }
             }
         });
 
-        function updateClock() {
-            const now = new Date();
-            const timeString = now.toTimeString().split(' ')[0];
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateString = now.toLocaleDateString('id-ID', options);
-            
-            const clockEl = document.getElementById('live-clock');
-            const dateEl = document.getElementById('live-date');
-            if (clockEl) clockEl.innerText = timeString;
-            if (dateEl) dateEl.innerText = dateString;
+        function saveSessionToLocalStorage() {
+            localStorage.setItem('guru_user', session.user);
+            localStorage.setItem('guru_role', session.role);
+            localStorage.setItem('guru_email', session.email);
+            localStorage.setItem('guru_status', session.status);
+            localStorage.setItem('guru_bagian', session.bagian);
+            if(session.photoURL) localStorage.setItem('guru_photo', session.photoURL);
         }
 
-        function toggleAuthMode(mode) {
+        setInterval(() => {
+            const now = new Date();
+            const clock = document.getElementById('live-clock');
+            const date = document.getElementById('live-date');
+            if(clock) clock.innerText = now.toLocaleTimeString('id-ID', { hour12: false });
+            if(date) date.innerText = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        }, 1000);
+
+        window.toggleAuthMode = (mode) => {
             const authSec = document.getElementById('auth-section');
-            const regSec = document.getElementById('self-reg-section');
+            const selfRegSec = document.getElementById('self-reg-section');
             if (mode === 'register') {
                 authSec.classList.add('hidden');
-                regSec.classList.remove('hidden');
+                selfRegSec.classList.remove('hidden');
             } else {
-                regSec.classList.add('hidden');
+                selfRegSec.classList.add('hidden');
                 authSec.classList.remove('hidden');
             }
-        }
+        };
 
-        function handleGoogleLogin() {
-            let email = prompt("Masukkan email Google Anda:", "guru@smpn4monta.sch.id");
-            if (!email) return;
-            let name = email.split('@')[0].toUpperCase();
-            let found = teachers.find(t => t.email.toLowerCase() === email.toLowerCase());
-            
-            if (!found) {
-                found = {
-                    id: 'GUR-' + Math.floor(100 + Math.random() * 900),
-                    name: name,
-                    email: email,
-                    role: email.includes('admin') ? 'admin' : 'guru',
-                    status: 'Guru',
-                    bagian: 'TU',
-                    approved: email.includes('admin')
-                };
-                teachers.push(found);
-                localStorage.setItem('smpn4_teachers', JSON.stringify(teachers));
-            }
-
-            if (!found.approved) {
-                alert("Akun Anda sedang menunggu persetujuan dari Admin.");
-                return;
-            }
-
-            currentUser = found;
-            localStorage.setItem('smpn4_current_user', JSON.stringify(currentUser));
-            showApp();
-        }
-
-        function handleLogin() {
-            const userIn = document.getElementById('login-user').value.trim();
-            const passIn = document.getElementById('login-pass').value.trim();
-
-            if (!userIn) {
-                alert("Silakan masukkan Username / Email / NIP.");
-                return;
-            }
-
-            let found = teachers.find(t => t.email.toLowerCase() === userIn.toLowerCase() || t.id.toLowerCase() === userIn.toLowerCase() || t.name.toLowerCase().includes(userIn.toLowerCase()));
-
-            if (!found) {
-                alert("Akun tidak ditemukan. Silakan daftar mandiri terlebih dahulu.");
-                return;
-            }
-
-            if (!found.approved) {
-                alert("Akun Anda belum disetujui oleh Admin.");
-                return;
-            }
-
-            currentUser = found;
-            localStorage.setItem('smpn4_current_user', JSON.stringify(currentUser));
-            showApp();
-        }
-
-        function handleSelfRegister() {
+        window.handleSelfRegister = async () => {
             const name = document.getElementById('self-reg-name').value.trim();
-            const email = document.getElementById('self-reg-email').value.trim();
-            const id = document.getElementById('self-reg-nis').value.trim() || ('GUR-' + Math.floor(100 + Math.random() * 900));
+            const email = document.getElementById('self-reg-email').value.trim().toLowerCase();
+            const nis = document.getElementById('self-reg-nis').value.trim();
+            const pass = document.getElementById('self-reg-pass').value.trim();
+            const statusVal = document.getElementById('self-reg-status').value;
+            const bagianVal = document.getElementById('self-reg-bagian').value;
+            const btnReg = document.getElementById('btn-self-reg');
 
-            if (!name || !email) {
-                alert("Nama dan Email wajib diisi.");
-                return;
+            if (!name || !email || !nis || !pass) {
+                return showToast("Semua kolom harus diisi!", "border-rose-500/30 bg-rose-950/90 text-rose-400");
+            }
+            if (pass.length < 6) {
+                return showToast("Password minimal 6 karakter!", "border-rose-500/30 bg-rose-950/90 text-rose-400");
             }
 
-            if (teachers.some(t => t.email.toLowerCase() === email.toLowerCase())) {
-                alert("Email sudah terdaftar.");
-                return;
+            try {
+                btnReg.disabled = true;
+                btnReg.innerText = "Memproses...";
+                const cred = await createUserWithEmailAndPassword(auth, email, pass);
+                await setDoc(doc(db, "users", cred.user.uid), {
+                    uid: cred.user.uid,
+                    nama: name,
+                    email: email,
+                    nip: nis,
+                    role: "Guru",
+                    status_guru: statusVal,
+                    bagian: bagianVal,
+                    status: "pending",
+                    created_at: serverTimestamp()
+                });
+                await signOut(auth);
+                showToast("Pendaftaran berhasil! Menunggu persetujuan Admin.", "border-emerald-500/30 bg-emerald-950/90 text-emerald-400");
+                toggleAuthMode('login');
+            } catch (e) {
+                showToast("Pendaftaran Gagal: " + e.message, "border-rose-500/30 bg-rose-950/90 text-rose-400");
+            } finally {
+                btnReg.disabled = false;
+                btnReg.innerText = "Daftar Akun";
+            }
+        };
+
+        window.handleGoogleLogin = async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                const email = user.email;
+                const q = query(collection(db, "users"), where("email", "==", email));
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    const userData = querySnapshot.docs[0].data();
+                    if (userData.status === "ditolak") {
+                        await signOut(auth);
+                        showToast("Akses Anda telah ditolak oleh Admin.", "border-rose-500/30 bg-rose-950/90 text-rose-400");
+                        return;
+                    }
+                    if (userData.status === "pending") {
+                        await signOut(auth);
+                        showToast("Akun Anda sedang menunggu persetujuan Admin.", "border-amber-500/30 bg-amber-950/90 text-amber-400");
+                        return;
+                    }
+                    session = {
+                        user: userData.nama || user.displayName,
+                        role: userData.role === "admin" ? "Admin" : "Guru",
+                        email: email,
+                        status: userData.status_guru || 'Guru',
+                        bagian: userData.bagian || 'TU',
+                        photoURL: user.photoURL
+                    };
+                } else {
+                    await setDoc(doc(db, "users", user.uid), {
+                        uid: user.uid,
+                        nama: user.displayName || "Pengguna",
+                        email: email,
+                        nip: "GM-" + Math.floor(1000 + Math.random() * 9000),
+                        role: "Guru",
+                        status_guru: "Guru",
+                        bagian: "TU",
+                        status: "approved",
+                        created_at: serverTimestamp()
+                    });
+                    session = {
+                        user: user.displayName || "Pengguna",
+                        role: "Guru",
+                        email: email,
+                        status: "Guru",
+                        bagian: "TU",
+                        photoURL: user.photoURL
+                    };
+                }
+                saveSessionToLocalStorage();
+                showApp();
+                showToast("Login Google Berhasil!", "border-emerald-500/30 bg-emerald-950/90 text-emerald-400");
+            } catch (e) {
+                showToast("Login Google Gagal: " + e.message, "border-rose-500/30 bg-rose-950/90 text-rose-400");
+            }
+        };
+
+        window.handleLogin = async () => {
+            const userInput = document.getElementById('login-user').value.trim();
+            const passInput = document.getElementById('login-pass').value.trim();
+            const btnLogin = document.getElementById('btn-login');
+
+            if (!userInput || !passInput) {
+                return showToast("Masukkan Username/Email/NIP dan Password!", "border-rose-500/30 bg-rose-950/90 text-rose-400");
             }
 
-            const newTeacher = {
-                id: id,
-                name: name,
-                email: email,
-                role: 'guru',
-                status: 'Guru',
-                bagian: 'TU',
-                approved: false
-            };
+            try {
+                btnLogin.disabled = true;
+                btnLogin.innerText = "Memproses...";
+                let targetEmail = userInput;
+                if (!targetEmail.includes('@')) {
+                    const snapNip = await getDocs(query(collection(db, "users"), where("nip", "==", userInput)));
+                    if (!snapNip.empty) {
+                        targetEmail = snapNip.docs[0].data().email;
+                    }
+                }
 
-            teachers.push(newTeacher);
-            localStorage.setItem('smpn4_teachers', JSON.stringify(teachers));
-            alert("Pendaftaran berhasil! Menunggu persetujuan Admin.");
-            toggleAuthMode('login');
-        }
+                const userCredential = await signInWithEmailAndPassword(auth, targetEmail, passInput);
+                const user = userCredential.user;
+                const userSnap = await getDocs(query(collection(db, "users"), where("email", "==", user.email)));
 
-        function handleLogout() {
-            localStorage.removeItem('smpn4_current_user');
-            currentUser = null;
-            if (html5QrCode && html5QrCode.isScanning) {
-                html5QrCode.stop().catch(() => {});
+                if (!userSnap.empty) {
+                    const userData = userSnap.docs[0].data();
+                    if (userData.status === "ditolak") {
+                        await signOut(auth);
+                        localStorage.clear();
+                        showToast("Akses Anda telah ditolak oleh Admin!", "border-rose-500/30 bg-rose-950/90 text-rose-400");
+                        return;
+                    }
+                    if (userData.status === "pending") {
+                        await signOut(auth);
+                        localStorage.clear();
+                        alert("Pendaftaran Anda belum disetujui Admin.");
+                        return;
+                    }
+
+                    session = {
+                        user: userData.nama || userInput,
+                        role: (userData.role === 'admin' || userData.role === 'Admin') ? 'Admin' : 'Guru',
+                        email: userData.email || user.email,
+                        status: userData.status_guru || 'Guru',
+                        bagian: userData.bagian || 'TU',
+                        photoURL: null
+                    };
+                    saveSessionToLocalStorage();
+                    showToast(`Login Berhasil! Selamat Datang, ${session.user}`, "border-emerald-500/30 bg-emerald-950/90 text-emerald-400");
+                    showApp();
+                } else {
+                    await signOut(auth);
+                    showToast("Profil pengguna tidak ditemukan di database.", "border-rose-500/30 bg-rose-950/90 text-rose-400");
+                }
+            } catch (e) {
+                showToast("Login Gagal! Periksa Email/NIP dan Password Anda.", "border-rose-500/30 bg-rose-950/90 text-rose-400");
+            } finally {
+                btnLogin.disabled = false;
+                btnLogin.innerText = "Masuk";
             }
+        };
+
+        window.handleLogout = async () => {
+            try {
+                await signOut(auth);
+            } catch(e) {}
+            localStorage.clear();
             location.reload();
-        }
+        };
 
         function showApp() {
             document.getElementById('auth-section').classList.add('hidden');
             document.getElementById('self-reg-section').classList.add('hidden');
             document.getElementById('app-section').classList.remove('hidden');
 
-            const avatarText = currentUser.name.charAt(0).toUpperCase();
-            document.getElementById('user-avatar').innerText = avatarText;
-            document.getElementById('display-user').innerText = currentUser.name;
-            document.getElementById('display-email').innerText = currentUser.email || currentUser.id;
-            
-            const roleBadge = document.getElementById('role-badge');
-            roleBadge.innerText = `${currentUser.role.toUpperCase()} • ${currentUser.status || 'Guru'} (${currentUser.bagian || 'TU'})`;
+            const displayNameEl = document.getElementById('display-user');
+            const displayEmailEl = document.getElementById('display-email');
+            const roleBadgeEl = document.getElementById('role-badge');
+            const avatarEl = document.getElementById('user-avatar');
+            const avatarMobEl = document.getElementById('user-avatar-mobile');
+            const emailMobEl = document.getElementById('user-email-mobile');
 
-            if (currentUser.role === 'admin') {
-                document.getElementById('admin-sidebar').classList.remove('hidden');
-                switchMode('monitor');
+            if(displayNameEl) displayNameEl.innerText = session.user;
+            if(displayEmailEl) displayEmailEl.innerText = session.email || '-';
+            if(roleBadgeEl) roleBadgeEl.innerText = `${session.role} • ${session.status} (${session.bagian})`;
+            if(emailMobEl) emailMobEl.innerText = session.user;
+
+            if (session.photoURL) {
+                if(avatarEl) avatarEl.innerHTML = `<img src="${session.photoURL}" class="w-full h-full object-cover">`;
+                if(avatarMobEl) avatarMobEl.innerHTML = `<img src="${session.photoURL}" class="w-full h-full object-cover">`;
             } else {
-                document.getElementById('admin-sidebar').classList.add('hidden');
-                switchMode('guru');
-                
-                // Isi form edit profil guru
-                document.getElementById('edit-profile-name').value = currentUser.name;
-                document.getElementById('edit-profile-status').value = currentUser.status || 'Guru';
-                document.getElementById('edit-profile-bagian').value = currentUser.bagian || 'TU';
+                if(avatarEl) avatarEl.innerText = session.user.charAt(0).toUpperCase();
+                if(avatarMobEl) avatarMobEl.innerHTML = `<i class="fa-solid fa-user"></i>`;
             }
+
+            // Inisialisasi Field Edit Profil di Dashboard Guru
+            const editName = document.getElementById('edit-my-name');
+            const editStatus = document.getElementById('edit-my-status');
+            const editBagian = document.getElementById('edit-my-bagian');
+            if(editName) editName.value = session.user;
+            if(editStatus) editStatus.value = session.status || 'Guru';
+            if(editBagian) editBagian.value = session.bagian || 'TU';
+
+            const adminSidebar = document.getElementById('admin-sidebar');
+            if (session.role === 'Admin') {
+                if(adminSidebar) adminSidebar.classList.remove('hidden');
+                switchMode('monitor');
+                listenApprovalRequests();
+            } else {
+                if(adminSidebar) adminSidebar.classList.add('hidden');
+                switchMode('guru');
+                listenGuruHistory();
+            }
+
+            listenRealtime();
+            listenUsersCloud();
         }
 
-        function saveProfileChanges() {
-            const newName = document.getElementById('edit-profile-name').value.trim();
-            const newStatus = document.getElementById('edit-profile-status').value;
-            const newBagian = document.getElementById('edit-profile-bagian').value;
+        // Simpan Perubahan Profil Sendiri (Nama, Status, Bagian)
+        window.saveMyProfileChanges = async () => {
+            const newName = document.getElementById('edit-my-name').value.trim();
+            const newStatus = document.getElementById('edit-my-status').value;
+            const newBagian = document.getElementById('edit-my-bagian').value;
 
             if (!newName) {
-                alert("Nama tidak boleh kosong.");
-                return;
+                return showToast("Nama tidak boleh kosong!", "border-rose-500/30 bg-rose-950/90 text-rose-400");
             }
 
-            currentUser.name = newName;
-            currentUser.status = newStatus;
-            currentUser.bagian = newBagian;
+            try {
+                const q = query(collection(db, "users"), where("email", "==", session.email));
+                const snap = await getDocs(q);
+                if (!snap.empty) {
+                    const docId = snap.docs[0].id;
+                    await updateDoc(doc(db, "users", docId), {
+                        nama: newName,
+                        status_guru: newStatus,
+                        bagian: newBagian
+                    });
+                }
 
-            // Update di array teachers
-            const index = teachers.findIndex(t => t.id === currentUser.id);
-            if (index !== -1) {
-                teachers[index] = currentUser;
-                localStorage.setItem('smpn4_teachers', JSON.stringify(teachers));
+                session.user = newName;
+                session.status = newStatus;
+                session.bagian = newBagian;
+                saveSessionToLocalStorage();
+
+                document.getElementById('display-user').innerText = newName;
+                document.getElementById('role-badge').innerText = `${session.role} • ${newStatus} (${newBagian})`;
+                showToast("Profil berhasil diperbarui!", "border-emerald-500/30 bg-emerald-950/90 text-emerald-400");
+            } catch (e) {
+                showToast("Gagal memperbarui profil: " + e.message, "border-rose-500/30 bg-rose-950/90 text-rose-400");
             }
+        };
 
-            localStorage.setItem('smpn4_current_user', JSON.stringify(currentUser));
-            alert("Profil berhasil diperbarui!");
-            showApp();
-        }
+        window.switchMode = (mode) => {
+            const sMonitor = document.getElementById('section-monitor');
+            const sScanner = document.getElementById('section-scanner');
+            const sGuru = document.getElementById('section-guru');
+            const sManage = document.getElementById('section-manage');
 
-        function switchMode(mode) {
-            currentMode = mode;
-            ['monitor', 'scanner', 'guru', 'manage'].forEach(m => {
-                const el = document.getElementById(`section-${m}`);
-                if (el) el.classList.add('hidden');
-                const tab = document.getElementById(`tab-${m}`);
-                if (tab) {
-                    tab.className = "w-full text-left px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-white/5 text-gray-400 hover:text-white transition-all flex items-center gap-3 border border-transparent hover:border-[#BF953F]/20 active-scale";
+            if(sMonitor) sMonitor.classList.add('hidden');
+            if(sScanner) sScanner.classList.add('hidden');
+            if(sGuru) sGuru.classList.add('hidden');
+            if(sManage) sManage.classList.add('hidden');
+
+            ['tab-monitor', 'tab-scanner', 'tab-manage'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.className = "w-full text-left px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-white/5 text-gray-400 hover:text-white transition-all flex items-center gap-3 border border-transparent hover:border-[#BF953F]/20 active-scale";
                 }
             });
 
-            const activeEl = document.getElementById(`section-${mode}`);
-            if (activeEl) activeEl.classList.remove('hidden');
-            const activeTab = document.getElementById(`tab-${mode}`);
-            if (activeTab) {
-                activeTab.className = "w-full text-left px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-gradient-to-r from-[#BF953F] to-[#AA7C11] text-black shadow-lg transition-all flex items-center gap-3 active-scale";
-            }
-
             if (mode === 'monitor') {
-                renderMonitor();
-                checkApprovals();
+                if(sMonitor) sMonitor.classList.remove('hidden');
+                const tab = document.getElementById('tab-monitor');
+                if(tab) tab.className = "w-full text-left px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-gradient-to-r from-[#BF953F] to-[#AA7C11] text-black shadow-lg transition-all flex items-center gap-3 active-scale";
             } else if (mode === 'scanner') {
-                setScannerMode(scannerMode);
-            } else if (mode === 'guru') {
-                renderGuruHistory();
+                if(sScanner) sScanner.classList.remove('hidden');
+                const tab = document.getElementById('tab-scanner');
+                if(tab) tab.className = "w-full text-left px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-gradient-to-r from-[#BF953F] to-[#AA7C11] text-black shadow-lg transition-all flex items-center gap-3 active-scale";
+                setScannerMode('camera');
             } else if (mode === 'manage') {
-                renderAkunList();
-                renderGuruListForCard();
+                if(sManage) sManage.classList.remove('hidden');
+                const tab = document.getElementById('tab-manage');
+                if(tab) tab.className = "w-full text-left px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-gradient-to-r from-[#BF953F] to-[#AA7C11] text-black shadow-lg transition-all flex items-center gap-3 active-scale";
+                loadGuruListForCards();
+            } else if (mode === 'guru') {
+                if(sGuru) sGuru.classList.remove('hidden');
             }
-        }
+        };
 
-        function setScannerMode(mode) {
-            scannerMode = mode;
+        window.setScannerMode = (type) => {
+            activeScannerType = type;
             const btnCam = document.getElementById('btn-mode-camera');
             const btnUsb = document.getElementById('btn-mode-usb');
-            const contCam = document.getElementById('scanner-container-camera');
-            const contUsb = document.getElementById('scanner-container-usb');
+            const boxCam = document.getElementById('scanner-container-camera');
+            const boxUsb = document.getElementById('scanner-container-usb');
 
-            if (mode === 'camera') {
-                btnCam.className = "py-3 px-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-[#BF953F] text-black shadow-lg transition-all flex items-center justify-center gap-2 active-scale";
-                btnUsb.className = "py-3 px-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-black/40 border border-[#BF953F]/30 text-gray-300 hover:text-white transition-all flex items-center justify-center gap-2 active-scale";
-                contCam.classList.remove('hidden');
-                contUsb.classList.add('hidden');
-                initCameraScanner();
+            if (type === 'camera') {
+                if(btnCam) btnCam.className = "py-3 px-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-[#BF953F] text-black shadow-lg transition-all flex items-center justify-center gap-2 active-scale";
+                if(btnUsb) btnUsb.className = "py-3 px-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-black/40 border border-[#BF953F]/30 text-gray-300 hover:text-white transition-all flex items-center justify-center gap-2 active-scale";
+                if(boxCam) boxCam.classList.remove('hidden');
+                if(boxUsb) boxUsb.classList.add('hidden');
+                stopScanner();
+                startCameraScanner();
             } else {
-                btnUsb.className = "py-3 px-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-[#BF953F] text-black shadow-lg transition-all flex items-center justify-center gap-2 active-scale";
-                btnCam.className = "py-3 px-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-black/40 border border-[#BF953F]/30 text-gray-300 hover:text-white transition-all flex items-center justify-center gap-2 active-scale";
-                contUsb.classList.remove('hidden');
-                contCam.classList.add('hidden');
-                if (html5QrCode && html5QrCode.isScanning) {
-                    html5QrCode.stop().catch(() => {});
-                }
-                document.getElementById('usb-scanner-input').focus();
+                if(btnUsb) btnUsb.className = "py-3 px-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-[#BF953F] text-black shadow-lg transition-all flex items-center justify-center gap-2 active-scale";
+                if(btnCam) btnCam.className = "py-3 px-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-black/40 border border-[#BF953F]/30 text-gray-300 hover:text-white transition-all flex items-center justify-center gap-2 active-scale";
+                if(boxUsb) boxUsb.classList.remove('hidden');
+                if(boxCam) boxCam.classList.add('hidden');
+                stopScanner();
+                initUsbScanner();
             }
-        }
+        };
 
-        function initCameraScanner() {
-            if (html5QrCode && html5QrCode.isScanning) return;
-            html5QrCode = new Html5Qrcode("reader");
+        function startCameraScanner() {
+            if (!html5QrCode) {
+                html5QrCode = new Html5Qrcode("reader");
+            }
             html5QrCode.start(
                 { facingMode: "environment" },
                 { fps: 10, qrbox: { width: 250, height: 250 } },
-                (decodedText) => {
-                    processBarcode(decodedText);
+                async (decodedText) => {
+                    const currentTime = Date.now();
+                    if (decodedText === lastScannedCode && currentTime - lastScanTime < 5000) return;
+                    lastScannedCode = decodedText;
+                    lastScanTime = currentTime;
+                    await processScannedAttendance(decodedText);
                 },
-                () => {}
-            ).catch(err => {
-                console.error("Kamera gagal:", err);
+                (errorMessage) => {}
+            ).catch(err => console.error(err));
+        }
+
+        function stopScanner() {
+            if (html5QrCode && html5QrCode.isScanning) {
+                html5QrCode.stop().catch(err => console.error(err));
+            }
+        }
+
+        function initUsbScanner() {
+            const inputEl = document.getElementById('usb-scanner-input');
+            if (inputEl) {
+                inputEl.focus();
+                inputEl.onblur = () => {
+                    if (activeScannerType === 'usb' && !document.hidden) {
+                        setTimeout(() => inputEl.focus(), 100);
+                    }
+                };
+                inputEl.onkeydown = async (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const codeVal = inputEl.value.trim();
+                        if (codeVal) {
+                            await processScannedAttendance(codeVal);
+                            inputEl.value = '';
+                        }
+                    }
+                };
+            }
+        }
+
+        async function processScannedAttendance(nameOrCode) {
+            const now = new Date();
+            const jamStr = now.toLocaleTimeString('id-ID', { hour12: false });
+            const fullWaktuStamp = `${now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} - ${jamStr}`;
+            
+            let matchedUser = registeredUsersCloud.find(u => u.nama.toLowerCase() === nameOrCode.toLowerCase() || (u.nip && u.nip === nameOrCode));
+            const finalName = matchedUser ? matchedUser.nama : nameOrCode;
+            const finalBagian = matchedUser ? `${matchedUser.status_guru || 'Guru'} (${matchedUser.bagian || 'TU'})` : 'Guru (TU)';
+
+            try {
+                await addDoc(collection(db, ...publicCollectionPath), {
+                    nama: finalName,
+                    jabatan: finalBagian,
+                    status: "Hadir",
+                    catatan: "Hadir via scan barcode",
+                    waktu_lengkap: fullWaktuStamp,
+                    waktu: jamStr,
+                    ts_raw: now.getTime(),
+                    created_at: serverTimestamp()
+                });
+                const resBox = document.getElementById('scan-result-box');
+                const scannedNameEl = document.getElementById('scanned-guru-name');
+                if(scannedNameEl) scannedNameEl.innerText = finalName;
+                if(resBox) resBox.classList.remove('hidden');
+                setTimeout(() => { if(resBox) resBox.classList.add('hidden'); }, 4000);
+                showToast(`Absen Berhasil: ${finalName}`, "border-emerald-500/30 bg-emerald-950/90 text-emerald-400");
+            } catch(e) {
+                showToast("Gagal menyimpan presensi scan!", "border-rose-500/30 bg-rose-950/90 text-rose-400");
+            }
+        }
+
+        function listenRealtime() {
+            onSnapshot(collection(db, ...publicCollectionPath), (snap) => {
+                monitorData = snap.docs.map(d => ({id: d.id, ...d.data()})).sort((a,b) => b.ts_raw - a.ts_raw);
+                if (isInitialLoad) {
+                    snap.docs.forEach(d => processedDocIds.add(d.id));
+                    isInitialLoad = false;
+                } else {
+                    snap.docChanges().forEach((change) => {
+                        if (change.type === "added") {
+                            const newData = change.doc.data();
+                            if (!processedDocIds.has(change.doc.id)) {
+                                processedDocIds.add(change.doc.id);
+                                playSpeechAnnouncement(newData.nama, newData.status, newData.catatan || "");
+                            }
+                        }
+                    });
+                }
+                filterMonitor();
             });
         }
 
-        function processBarcode(code) {
-            let t = teachers.find(item => item.id.toLowerCase() === code.toLowerCase() || item.name.toLowerCase() === code.toLowerCase());
-            if (!t) {
-                alert("Barcode tidak dikenal dalam database guru/staf.");
-                return;
-            }
-
-            const now = new Date();
-            const record = {
-                id: t.id,
-                name: t.name,
-                status: 'Hadir',
-                bagian: t.bagian || 'TU',
-                jabatanStatus: t.status || 'Guru',
-                catatan: 'Hadir via Barcode Scan',
-                timestamp: now.toISOString(),
-                dateStr: now.toLocaleDateString('id-ID')
-            };
-
-            attendanceLog.unshift(record);
-            localStorage.setItem('smpn4_attendance', JSON.stringify(attendanceLog));
-
-            const resBox = document.getElementById('scan-result-box');
-            document.getElementById('scanned-guru-name').innerText = `${t.name} (${t.bagian || 'TU'})`;
-            resBox.classList.remove('hidden');
-            setTimeout(() => resBox.classList.add('hidden'), 4000);
+        function listenUsersCloud() {
+            onSnapshot(collection(db, "users"), (snapshot) => {
+                registeredUsersCloud = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                loadGuruListForCards();
+                renderAkunManageTable(registeredUsersCloud);
+            });
         }
 
-        function submitGuruAttendance() {
-            const status = document.querySelector('input[name="status"]:checked').value;
-            const catatan = document.getElementById('form-catatan').value.trim() || '-';
-
-            const now = new Date();
-            const record = {
-                id: currentUser.id,
-                name: currentUser.name,
-                status: status,
-                bagian: currentUser.bagian || 'TU',
-                jabatanStatus: currentUser.status || 'Guru',
-                catatan: catatan,
-                timestamp: now.toISOString(),
-                dateStr: now.toLocaleDateString('id-ID')
-            };
-
-            attendanceLog.unshift(record);
-            localStorage.setItem('smpn4_attendance', JSON.stringify(attendanceLog));
-            alert("Kehadiran / Jurnal berhasil dikirim!");
-            document.getElementById('form-catatan').value = '';
-            renderGuruHistory();
+        function listenApprovalRequests() {
+            onSnapshot(query(collection(db, "users"), where("status", "==", "pending")), (snapshot) => {
+                const approvalBox = document.getElementById('approval-box');
+                const approvalList = document.getElementById('approval-list');
+                if(!approvalBox || !approvalList) return;
+                if(snapshot.empty) {
+                    approvalBox.classList.add('hidden');
+                    return;
+                }
+                approvalBox.classList.remove('hidden');
+                approvalList.innerHTML = snapshot.docs.map(docSnap => {
+                    const data = docSnap.data();
+                    return `
+                        <div class="p-3 bg-black/40 border border-[#BF953F]/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-2">
+                            <div>
+                                <p class="text-xs font-bold text-white">${data.nama} <span class="text-[10px] text-[#BF953F]">[${data.status_guru || 'Guru'} - ${data.bagian || 'TU'}]</span></p>
+                                <p class="text-[10px] text-gray-400">${data.email || data.nip || '-'}</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="approveUser('${docSnap.id}')" class="px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-400 border border-emerald-500/40 rounded-xl text-[10px] font-black uppercase transition-all">
+                                    <i class="fa-solid fa-check mr-1"></i> Setujui
+                                </button>
+                                <button onclick="rejectUser('${docSnap.id}')" class="px-3 py-1.5 bg-rose-500/20 hover:bg-rose-500/40 text-rose-400 border border-rose-500/40 rounded-xl text-[10px] font-black uppercase transition-all">
+                                    <i class="fa-solid fa-xmark mr-1"></i> Tolak
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            });
         }
 
-        function renderMonitor() {
+        window.approveUser = async (docId) => {
+            await updateDoc(doc(db, "users", docId), { status: "approved" });
+            showToast("Akun berhasil disetujui!", "border-emerald-500/30 bg-emerald-950/90 text-emerald-400");
+        };
+
+        window.rejectUser = async (docId) => {
+            await updateDoc(doc(db, "users", docId), { status: "ditolak" });
+            showToast("Akun ditolak.", "border-rose-500/30 bg-rose-950/90 text-rose-400");
+        };
+
+        window.filterMonitor = () => {
+            const periodVal = document.getElementById('filter-period').value;
+            const searchVal = document.getElementById('search-monitor').value.toLowerCase();
+            const bagianVal = document.getElementById('filter-bagian').value;
+            const now = new Date();
+
+            filteredMonitorData = monitorData.filter(item => {
+                const matchSearch = item.nama.toLowerCase().includes(searchVal);
+                let matchBagian = true;
+                if (bagianVal !== 'semua') {
+                    matchBagian = item.jabatan && item.jabatan.toLowerCase().includes(bagianVal.toLowerCase());
+                }
+
+                let matchPeriod = true;
+                if (item.ts_raw) {
+                    const itemDate = new Date(item.ts_raw);
+                    if (periodVal === 'hari') {
+                        matchPeriod = itemDate.toDateString() === now.toDateString();
+                    } else if (periodVal === 'minggu') {
+                        const startOfWeek = new Date(now);
+                        startOfWeek.setDate(now.getDate() - now.getDay());
+                        matchPeriod = itemDate >= startOfWeek;
+                    } else if (periodVal === 'bulan') {
+                        matchPeriod = itemDate.getMonth() === now.getMonth() && itemDate.getFullYear() === now.getFullYear();
+                    } else if (periodVal === 'tahun') {
+                        matchPeriod = itemDate.getFullYear() === now.getFullYear();
+                    }
+                }
+                return matchSearch && matchPeriod && matchBagian;
+            });
+            renderMonitorTable(filteredMonitorData);
+        };
+
+        function renderMonitorTable(data) {
             const tbody = document.getElementById('monitor-table-body');
-            const search = document.getElementById('search-monitor').value.toLowerCase();
-            const period = document.getElementById('filter-period').value;
-            const filterBagian = document.getElementById('filter-bagian-monitor').value;
-
-            let filtered = attendanceLog.filter(item => {
-                let matchSearch = item.name.toLowerCase().includes(search);
-                let matchBagian = (filterBagian === 'semua' || item.bagian === filterBagian);
-                return matchSearch && matchBagian;
-            });
-
+            if(!tbody) return;
             tbody.innerHTML = '';
-            if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-gray-500 italic">Belum ada data aktivitas.</td></tr>`;
-                document.getElementById('stat-hadir').innerText = 0;
-                document.getElementById('stat-izin').innerText = 0;
-                document.getElementById('stat-sakit').innerText = 0;
-                document.getElementById('stat-total').innerText = 0;
-                return;
-            }
-
-            let cHadir = 0, cIzin = 0, cSakit = 0;
-            filtered.forEach(item => {
-                if (item.status === 'Hadir') cHadir++;
-                else if (item.status === 'Izin') cIzin++;
-                else if (item.status === 'Sakit') cSakit++;
-
-                let badgeColor = item.status === 'Hadir' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : (item.status === 'Izin' ? 'bg-amber-500/10 text-amber-400 border-amber-500/30' : 'bg-rose-500/10 text-rose-400 border-rose-500/30');
-
-                let tr = document.createElement('tr');
-                tr.className = "hover:bg-white/5 transition-all";
-                tr.innerHTML = `
-                    <td class="px-6 py-4 text-xs text-gray-300">${new Date(item.timestamp).toLocaleString('id-ID')}</td>
-                    <td class="px-6 py-4 font-bold text-white uppercase text-xs">${item.name}</td>
-                    <td class="px-6 py-4 text-xs text-[#BF953F] font-semibold">${item.jabatanStatus || 'Guru'} (${item.bagian || 'TU'})</td>
-                    <td class="px-6 py-4 text-center"><span class="px-3 py-1 rounded-full text-[10px] font-black border ${badgeColor}">${item.status}</span></td>
-                    <td class="px-6 py-4 text-xs text-gray-300">${item.catatan}</td>
-                    <td class="px-6 py-4 text-center"><button onclick="deleteRecord('${item.timestamp}')" class="text-rose-400 hover:text-rose-300 text-xs"><i class="fa-solid fa-trash"></i></button></td>
+            let h = 0, i = 0, s = 0;
+            data.forEach(item => {
+                if(item.status === 'Hadir') h++;
+                else if(item.status === 'Izin') i++;
+                else if(item.status === 'Sakit') s++;
+                
+                tbody.innerHTML += `
+                    <tr class="hover:bg-white/[0.02] transition-colors border-b border-white/5">
+                        <td class="px-6 py-4 text-[11px] font-bold text-[#BF953F] font-mono">${item.waktu_lengkap || '--'}</td>
+                        <td class="px-6 py-4 font-black text-white uppercase text-xs tracking-wider">${item.nama}</td>
+                        <td class="px-6 py-4 text-xs text-gray-300 uppercase">${item.jabatan || 'Guru (TU)'}</td>
+                        <td class="px-6 py-4 text-center">
+                            <span class="px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border ${getStatusClass(item.status)}">${item.status}</span>
+                        </td>
+                        <td class="px-6 py-4 text-xs text-gray-400">${item.catatan || '-'}</td>
+                        <td class="px-6 py-4 text-center">
+                            <button onclick="deleteRecord('${item.id}')" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/25 text-rose-400 rounded-lg text-xs font-bold transition-all"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
                 `;
-                tbody.appendChild(tr);
             });
-
-            document.getElementById('stat-hadir').innerText = cHadir;
-            document.getElementById('stat-izin').innerText = cIzin;
-            document.getElementById('stat-sakit').innerText = cSakit;
-            document.getElementById('stat-total').innerText = filtered.length;
+            document.getElementById('stat-hadir').innerText = h;
+            document.getElementById('stat-izin').innerText = i;
+            document.getElementById('stat-sakit').innerText = s;
+            document.getElementById('stat-total').innerText = data.length;
         }
 
-        function renderGuruHistory() {
-            const histBox = document.getElementById('guru-history');
-            const myLogs = attendanceLog.filter(item => item.id === currentUser.id);
+        function getStatusClass(st) {
+            if(st === 'Hadir') return 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400';
+            if(st === 'Izin') return 'bg-amber-500/10 border-amber-500/30 text-amber-400';
+            return 'bg-rose-500/10 border-rose-500/30 text-rose-400';
+        }
 
-            histBox.innerHTML = '';
-            if (myLogs.length === 0) {
-                histBox.innerHTML = `<p class="text-gray-500 text-xs italic py-6 text-center">Belum ada riwayat presensi.</p>`;
-                return;
+        window.deleteRecord = async (id) => {
+            if(confirm("Hapus data presensi ini?")) {
+                try {
+                    await updateDoc(doc(db, ...publicCollectionPath, id), {}); // atau hapus dokumen
+                    // implementasi penghapusan di database sesuai struktur
+                } catch(e) {}
             }
+        };
 
-            myLogs.forEach(item => {
-                let div = document.createElement('div');
-                div.className = "p-4 rounded-2xl bg-black/40 border border-white/5 flex justify-between items-center text-xs";
-                div.innerHTML = `
-                    <div>
-                        <span class="font-bold text-white">${new Date(item.timestamp).toLocaleString('id-ID')}</span>
-                        <p class="text-gray-400 mt-1">${item.catatan}</p>
-                    </div>
-                    <span class="px-3 py-1 rounded-full font-black text-[10px] bg-[#BF953F]/20 text-[#BF953F] border border-[#BF953F]/30">${item.status}</span>
-                `;
-                histBox.appendChild(div);
-            });
-        }
-
-        function checkApprovals() {
-            const unapproved = teachers.filter(t => !t.approved);
-            const box = document.getElementById('approval-box');
-            const list = document.getElementById('approval-list');
-
-            if (unapproved.length === 0) {
-                box.classList.add('hidden');
-                return;
-            }
-
-            box.classList.remove('hidden');
-            list.innerHTML = '';
-            unapproved.forEach(t => {
-                let div = document.createElement('div');
-                div.className = "flex justify-between items-center bg-black/40 p-3 rounded-xl border border-amber-500/20 text-xs";
-                div.innerHTML = `
-                    <div>
-                        <strong class="text-white uppercase">${t.name}</strong> (${t.email})
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="approveUser('${t.email}')" class="px-3 py-1.5 bg-emerald-500 text-black font-bold rounded-lg uppercase text-[10px]">Setuju</button>
-                        <button onclick="rejectUser('${t.email}')" class="px-3 py-1.5 bg-rose-500 text-white font-bold rounded-lg uppercase text-[10px]">Tolak</button>
-                    </div>
-                `;
-                list.appendChild(div);
-            });
-        }
-
-        function approveUser(email) {
-            let t = teachers.find(item => item.email === email);
-            if (t) {
-                t.approved = true;
-                localStorage.setItem('smpn4_teachers', JSON.stringify(teachers));
-                checkApprovals();
-                renderAkunList();
-            }
-        }
-
-        function rejectUser(email) {
-            teachers = teachers.filter(item => item.email !== email);
-            localStorage.setItem('smpn4_teachers', JSON.stringify(teachers));
-            checkApprovals();
-            renderAkunList();
-        }
-
-        function renderAkunList() {
+        function renderAkunManageTable(users) {
             const tbody = document.getElementById('akun-manage-table-body');
-            const search = document.getElementById('search-akun-list').value.toLowerCase();
-            const filtered = teachers.filter(t => t.name.toLowerCase().includes(search) || t.email.toLowerCase().includes(search));
-
-            tbody.innerHTML = '';
-            filtered.forEach(t => {
-                let tr = document.createElement('tr');
-                tr.className = "hover:bg-white/5 transition-all";
-                tr.innerHTML = `
-                    <td class="px-4 py-3 font-bold text-white uppercase">${t.name}</td>
-                    <td class="px-4 py-3 text-gray-300">${t.email}</td>
-                    <td class="px-4 py-3 text-[#BF953F] font-semibold">${t.status || 'Guru'} (${t.bagian || 'TU'})</td>
-                    <td class="px-4 py-3 text-center"><span class="px-2 py-1 rounded text-[9px] font-bold ${t.approved ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}">${t.approved ? 'Aktif' : 'Pending'}</span></td>
+            if(!tbody) return;
+            tbody.innerHTML = users.map(u => `
+                <tr class="hover:bg-white/[0.02] border-b border-white/5">
+                    <td class="px-4 py-3 font-bold text-white uppercase">${u.nama || '-'}</td>
+                    <td class="px-4 py-3 text-gray-400">${u.email || u.nip || '-'}</td>
+                    <td class="px-4 py-3 text-[#BF953F] font-semibold">${u.status_guru || 'Guru'} (${u.bagian || 'TU'})</td>
                     <td class="px-4 py-3 text-center">
-                        <button onclick="deleteTeacher('${t.id}')" class="text-rose-400 hover:text-rose-300"><i class="fa-solid fa-trash"></i></button>
+                        <span class="px-2.5 py-1 rounded-lg text-[9px] font-black uppercase ${u.status === 'approved' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}">${u.status || 'pending'}</span>
                     </td>
-                `;
-                tbody.appendChild(tr);
-            });
+                    <td class="px-4 py-3 text-center flex items-center justify-center gap-1">
+                        <button onclick="approveUser('${u.id}')" class="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded text-[10px]" title="Setujui"><i class="fa-solid fa-check"></i></button>
+                        <button onclick="rejectUser('${u.id}')" class="px-2 py-1 bg-rose-500/20 text-rose-400 rounded text-[10px]" title="Tolak"><i class="fa-solid fa-xmark"></i></button>
+                    </td>
+                </tr>
+            `).join('');
         }
 
-        function renderGuruListForCard() {
+        function loadGuruListForCards() {
             const container = document.getElementById('guru-card-container');
-            const search = document.getElementById('search-guru-list').value.toLowerCase();
-            const filtered = teachers.filter(t => t.name.toLowerCase().includes(search));
-
-            container.innerHTML = '';
-            filtered.forEach(t => {
-                let div = document.createElement('div');
-                div.className = "luxury-card p-4 rounded-2xl flex justify-between items-center border border-[#BF953F]/20";
-                div.innerHTML = `
+            if(!container) return;
+            container.innerHTML = registeredUsersCloud.map(g => `
+                <div class="p-4 bg-black/40 border border-[#BF953F]/20 rounded-2xl flex flex-col justify-between space-y-3">
                     <div>
-                        <h5 class="font-bold text-white text-xs uppercase">${t.name}</h5>
-                        <p class="text-[10px] text-[#BF953F]">ID: ${t.id} | ${t.status || 'Guru'} (${t.bagian || 'TU'})</p>
+                        <h4 class="font-bold text-white uppercase text-xs">${g.nama}</h4>
+                        <p class="text-[10px] text-[#BF953F]">${g.status_guru || 'Guru'} • ${g.bagian || 'TU'}</p>
+                        <p class="text-[10px] text-gray-400 font-mono">ID: ${g.nip || '-'}</p>
                     </div>
-                    <button onclick="printSingleCard('${t.id}')" class="px-3 py-2 bg-[#BF953F] text-black font-bold rounded-xl text-[10px] uppercase tracking-wider">Cetak Kartu</button>
-                `;
-                container.appendChild(div);
-            });
+                    <button onclick="printSingleCard('${g.nama}', '${g.nip || '-'}', '${g.status_guru || 'Guru'} (${g.bagian || 'TU'})')" class="w-full py-2 bg-[#BF953F]/20 hover:bg-[#BF953F]/30 text-[#BF953F] border border-[#BF953F]/40 rounded-xl text-[10px] font-black uppercase">
+                        Cetak Kartu
+                    </button>
+                </div>
+            `).join('');
         }
 
-        function openGuruBarcodeModal() {
-            const box = document.getElementById('guru-barcode-preview-box');
-            box.classList.remove('hidden');
-            document.getElementById('guru-card-name-text').innerText = `${currentUser.name} (${currentUser.bagian || 'TU'})`;
-            const renderDiv = document.getElementById('guru-qrcode-render');
-            renderDiv.innerHTML = '';
-            new QRCode(renderDiv, {
-                text: currentUser.id,
-                width: 140,
-                height: 140
-            });
-        }
-
-        function printMyBarcode() {
-            const printable = document.getElementById('printable-area');
-            printable.innerHTML = `
-                <div style="text-align: center; padding: 40px; font-family: sans-serif;">
-                    <h2 style="margin: 0; color: #111;">SMP NEGERI 4 MONTA</h2>
-                    <p style="font-size: 12px; color: #555; text-transform: uppercase;">KARTU PRESENSI ${currentUser.status || 'GURU'} - ${currentUser.bagian || 'TU'}</p>
-                    <div style="margin: 20px auto; display: inline-block; padding: 10px; border: 2px solid #000;" id="print-qr"></div>
-                    <h3 style="margin: 10px 0 0 0; text-transform: uppercase;">${currentUser.name}</h3>
-                    <p style="font-size: 11px; margin: 5px 0;">ID: ${currentUser.id}</p>
+        window.printSingleCard = (name, nis, bagian) => {
+            const area = document.getElementById('printable-area');
+            area.innerHTML = `
+                <div style="width: 300px; padding: 20px; border: 2px solid #BF953F; text-align: center; font-family: sans-serif; background: #fff; color: #000; margin: 20px auto;">
+                    <h3 style="margin: 0; font-size: 11px; font-weight: 800;">SMP NEGERI 4 MONTA</h3>
+                    <p style="margin: 2px 0 10px 0; font-size: 9px; font-weight: 700; color: #555;">KARTU PRESENSI</p>
+                    <div id="single-qr-box" style="display:inline-block; background:#fff; padding:5px;"></div>
+                    <h4 style="margin: 8px 0 2px 0; font-size: 13px; font-weight: 900; text-transform: uppercase;">${name}</h4>
+                    <p style="margin: 0 0 5px 0; font-size: 10px; font-weight: 700; color: #b38728;">${bagian}</p>
+                    <p style="margin: 0; font-size: 9px; font-family: monospace;">ID: ${nis}</p>
                 </div>
             `;
-            const qrTarget = document.getElementById('print-qr');
-            new QRCode(qrTarget, { text: currentUser.id, width: 150, height: 150 });
-            setTimeout(() => window.print(), 500);
-        }
+            new QRCode(document.getElementById('single-qr-box'), { text: name, width: 120, height: 120 });
+            setTimeout(() => window.print(), 300);
+        };
 
-        function printSingleCard(id) {
-            let t = teachers.find(item => item.id === id);
-            if (!t) return;
-            const printable = document.getElementById('printable-area');
-            printable.innerHTML = `
-                <div style="text-align: center; padding: 40px; font-family: sans-serif;">
-                    <h2 style="margin: 0;">SMP NEGERI 4 MONTA</h2>
-                    <p style="font-size: 12px; text-transform: uppercase;">KARTU PRESENSI ${t.status || 'GURU'} - ${t.bagian || 'TU'}</p>
-                    <div style="margin: 20px auto; display: inline-block; padding: 10px; border: 2px solid #000;" id="print-qr-single"></div>
-                    <h3 style="margin: 10px 0 0 0; text-transform: uppercase;">${t.name}</h3>
-                    <p style="font-size: 11px; margin: 5px 0;">ID: ${t.id}</p>
+        window.printAllBarcodes = () => {
+            const area = document.getElementById('printable-area');
+            area.innerHTML = `
+                <div style="padding: 20px; font-family: sans-serif; background: #fff; color: #000;">
+                    <h2 style="text-align: center; margin-bottom: 20px;">Daftar Kartu Presensi SMPN 4 MONTA</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                        ${registeredUsersCloud.map(u => `
+                            <div style="padding: 15px; border: 1px solid #999; text-align: center;">
+                                <h4 style="margin:0; font-size: 10px;">SMP NEGERI 4 MONTA</h4>
+                                <div class="qr-item" data-text="${u.nama}" style="margin: 10px auto; display:inline-block;"></div>
+                                <h3 style="margin: 5px 0 2px 0; font-size: 12px; text-transform: uppercase;">${u.nama}</h3>
+                                <p style="margin: 0; font-size: 9px; color: #555;">${u.status_guru || 'Guru'} (${u.bagian || 'TU'})</p>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
             `;
-            const qrTarget = document.getElementById('print-qr-single');
-            new QRCode(qrTarget, { text: t.id, width: 150, height: 150 });
-            setTimeout(() => window.print(), 500);
-        }
-
-        function printAllBarcodes() {
-            const printable = document.getElementById('printable-area');
-            let html = `<div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; font-family: sans-serif;">`;
-            teachers.forEach(t => {
-                html += `
-                    <div style="border: 1px dashed #000; padding: 20px; width: 220px; text-align: center;">
-                        <h4 style="margin:0; font-size:14px;">SMPN 4 MONTA</h4>
-                        <p style="font-size:10px; margin:2px 0;">${t.status || 'Guru'} (${t.bagian || 'TU'})</p>
-                        <div style="margin: 10px auto; width: 100px; height: 100px;" class="qr-item" data-id="${t.id}"></div>
-                        <strong style="font-size:12px; display:block; text-transform:uppercase;">${t.name}</strong>
-                        <span style="font-size:10px;">ID: ${t.id}</span>
-                    </div>
-                `;
-            });
-            html += `</div>`;
-            printable.innerHTML = html;
-
             document.querySelectorAll('.qr-item').forEach(el => {
-                new QRCode(el, { text: el.getAttribute('data-id'), width: 90, height: 90 });
+                new QRCode(el, { text: el.getAttribute('data-text'), width: 100, height: 100 });
             });
+            setTimeout(() => window.print(), 500);
+        };
 
-            setTimeout(() => window.print(), 800);
+        window.openGuruBarcodeModal = () => {
+            const previewBox = document.getElementById('guru-barcode-preview-box');
+            const qrContainer = document.getElementById('guru-qrcode-render');
+            document.getElementById('guru-card-name-text').innerText = `${session.user} - ${session.status} (${session.bagian})`;
+            qrContainer.innerHTML = '';
+            new QRCode(qrContainer, { text: session.user, width: 140, height: 140 });
+            previewBox.classList.remove('hidden');
+        };
+
+        window.printMyBarcode = () => {
+            window.printSingleCard(session.user, session.email, `${session.status} (${session.bagian})`);
+        };
+
+        function showToast(msg, customClass = "") {
+            const t = document.getElementById('toast-container');
+            t.className = `fixed bottom-10 left-1/2 -translate-x-1/2 px-6 py-4 rounded-2xl text-white font-extrabold text-xs tracking-widest uppercase z-[600] shadow-2xl transition-all duration-300 transform scale-100 border ${customClass}`;
+            t.innerText = msg;
+            t.classList.remove('hidden');
+            setTimeout(() => {
+                t.classList.add('hidden');
+            }, 3000);
         }
 
-        function deleteRecord(timestamp) {
-            if (confirm("Hapus catatan aktivitas ini?")) {
-                attendanceLog = attendanceLog.filter(item => item.timestamp !== timestamp);
-                localStorage.setItem('smpn4_attendance', JSON.stringify(attendanceLog));
-                renderMonitor();
-            }
-        }
-
-        function deleteTeacher(id) {
-            if (confirm("Hapus akun ini dari sistem?")) {
-                teachers = teachers.filter(item => item.id !== id);
-                localStorage.setItem('smpn4_teachers', JSON.stringify(teachers));
-                renderAkunList();
-                renderGuruListForCard();
-            }
-        }
-
-        function filterMonitor() { renderMonitor(); }
-        function filterGuruList() { renderGuruListForCard(); }
-        function filterAkunList() { renderAkunList(); }
-
-        // Fungsi Ekspor Resmi PDF, Excel, Word
-        function exportToPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.text("LAPORAN PRESENSI & JURNAL - SMP NEGERI 4 MONTA", 14, 15);
-            let rows = attendanceLog.map(i => [new Date(i.timestamp).toLocaleString('id-ID'), i.name, `${i.jabatanStatus || 'Guru'} (${i.bagian || 'TU'})`, i.status, i.catatan]);
-            doc.autoTable({
-                head: [['Waktu', 'Nama', 'Jabatan & Bagian', 'Status', 'Jurnal / Keterangan']],
-                body: rows,
-                startY: 25,
-            });
-            doc.save("laporan_smpn4_monta.pdf");
-        }
-
-        function exportToExcel() {
-            let data = attendanceLog.map(i => ({
-                Waktu: new Date(i.timestamp).toLocaleString('id-ID'),
-                Nama: i.name,
-                Status: i.status,
-                Bagian: i.bagian || 'TU',
-                Jabatan: i.jabatanStatus || 'Guru',
-                Keterangan: i.catatan
-            }));
-            const ws = XLSX.utils.json_to_sheet(data);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Presensi");
-            XLSX.writeFile(wb, "laporan_smpn4_monta.xlsx");
-        }
-
-        function exportToWord() {
-            const { Document, Packer, Paragraph, TextRun, Table, TableCell, TableRow, WidthType } = window.docx;
-            let tableRows = [
-                new TableRow({
-                    children: [
-                        new TableCell({ children: [new Paragraph("Waktu")] }),
-                        new TableCell({ children: [new Paragraph("Nama")] }),
-                        new TableCell({ children: [new Paragraph("Bagian")] }),
-                        new TableCell({ children: [new Paragraph("Status")] }),
-                        new TableCell({ children: [new Paragraph("Keterangan")] }),
-                    ]
-                })
-            ];
-
-            attendanceLog.forEach(i => {
-                tableRows.push(new TableRow({
-                    children: [
-                        new TableCell({ children: [new Paragraph(new Date(i.timestamp).toLocaleString('id-ID'))] }),
-                        new TableCell({ children: [new Paragraph(i.name)] }),
-                        new TableCell({ children: [new Paragraph(i.bagian || 'TU')] }),
-                        new TableCell({ children: [new Paragraph(i.status)] }),
-                        new TableCell({ children: [new Paragraph(i.catatan)] }),
-                    ]
-                }));
-            });
-
-            const doc = new Document({
-                sections: [{
-                    children: [
-                        new Paragraph({ children: [new TextRun({ text: "LAPORAN PRESENSI & JURNAL SMPN 4 MONTA", bold: true, size: 24 })] }),
-                        new Paragraph({ text: "" }),
-                        new Table({ rows: tableRows, width: { size: 100, type: WidthType.PERCENTAGE } })
-                    ]
-                }]
-            });
-
-            Packer.toBlob(doc).then(blob => {
-                saveAs(blob, "laporan_smpn4_monta.docx");
-            });
-        }
+        // Ekspor fungsi ke window scope
+        window.handleGoogleLogin = handleGoogleLogin;
+        window.handleLogin = handleLogin;
+        window.handleLogout = handleLogout;
+        window.switchMode = switchMode;
+        window.setScannerMode = setScannerMode;
+        window.filterMonitor = filterMonitor;
+        window.printSingleCard = printSingleCard;
+        window.printAllBarcodes = printAllBarcodes;
+        window.deleteRecord = deleteRecord;
+        window.openGuruBarcodeModal = openGuruBarcodeModal;
+        window.printMyBarcode = printMyBarcode;
+        window.approveUser = approveUser;
+        window.rejectUser = rejectUser;
+        window.toggleAuthMode = toggleAuthMode;
+        window.handleSelfRegister = handleSelfRegister;
+        window.saveMyProfileChanges = saveMyProfileChanges;
     </script>
 </body>
 </html>
