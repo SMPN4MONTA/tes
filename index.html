@@ -185,13 +185,21 @@
                     <input type="text" id="self-reg-name" class="w-full px-4 py-3 luxury-input rounded-xl font-medium text-xs" placeholder="mis. Ahmad, S.Pd.">
                 </div>
                 <div>
-                    <label class="text-[10px] font-black text-[#BF953F] uppercase tracking-widest ml-1 mb-1 block">Pilih Bagian / Jabatan</label>
-                    <select id="self-reg-bagian" class="w-full px-4 py-3 luxury-input rounded-xl font-medium text-xs bg-[#121214] text-white">
+                    <label class="text-[10px] font-black text-[#BF953F] uppercase tracking-widest ml-1 mb-1 block">Status</label>
+                    <select id="self-reg-status-opsi" class="w-full px-4 py-3 luxury-input rounded-xl font-medium text-xs bg-[#121214] text-white">
                         <option value="GURU">GURU</option>
-                        <option value="TEHNIK">TEHNIK</option>
-                        <option value="TU">TU</option>
-                        <option value="PERPUSTAKAAN">PERPUSTAKAAN</option>
+                        <option value="TENDIK">TENDIK</option>
                     </select>
+                </div>
+                <div>
+                    <label class="text-[10px] font-black text-[#BF953F] uppercase tracking-widest ml-1 mb-1 block">Pilih Bagian</label>
+                    <select id="self-reg-bagian" onchange="toggleManualInput('self-reg-bagian', 'self-reg-bagian-manual')" class="w-full px-4 py-3 luxury-input rounded-xl font-medium text-xs bg-[#121214] text-white">
+                        <option value="TU">TU (Tata Usaha)</option>
+                        <option value="PERPUSTAKAAN">PERPUSTAKAAN</option>
+                        <option value="LITERASI">LITERASI</option>
+                        <option value="LAINNYA">LAINNYA (INPUT MANUAL)</option>
+                    </select>
+                    <input type="text" id="self-reg-bagian-manual" class="w-full px-4 py-3 luxury-input rounded-xl font-medium text-xs mt-2 hidden" placeholder="Masukkan Nama Bagian Manual">
                 </div>
                 <div>
                     <label class="text-[10px] font-black text-[#BF953F] uppercase tracking-widest ml-1 mb-1 block">Email</label>
@@ -343,13 +351,14 @@
                                     <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full pulse-gold"></span>
                                     Monitoring Kehadiran
                                 </h4>
-                                <!-- Filter Bagian Monitoring (TU, PERPUSTAKAAN, GURU, TEHNIK) -->
+                                <!-- Filter Bagian Monitoring (TU, PERPUSTAKAAN, LITERASI, DLL) -->
                                 <select id="filter-bagian-monitor" onchange="filterMonitor()" class="text-xs px-3 py-2 luxury-input rounded-xl bg-[#121214] text-white font-medium cursor-pointer">
-                                    <option value="semua">Semua Bagian (TU, Perpus, Guru, Teknik)</option>
-                                    <option value="GURU">GURU</option>
-                                    <option value="TEHNIK">TEHNIK</option>
-                                    <option value="TU">TU</option>
+                                    <option value="semua">Semua Bagian / Jabatan</option>
+                                    <option value="TU">TU (Tata Usaha)</option>
                                     <option value="PERPUSTAKAAN">PERPUSTAKAAN</option>
+                                    <option value="LITERASI">LITERASI</option>
+                                    <option value="GURU">GURU</option>
+                                    <option value="TENDIK">TENDIK</option>
                                 </select>
                             </div>
                             <div class="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
@@ -364,7 +373,7 @@
                                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                                         <i class="fa-solid fa-magnifying-glass text-xs"></i>
                                     </span>
-                                    <input type="text" id="search-monitor" oninput="filterMonitor()" placeholder="Cari nama..." class="text-xs pl-8 pr-4 py-2 w-full sm:w-44 luxury-input rounded-xl">
+                                    <input type="text" id="search-monitor" oninput="filterMonitor()" placeholder="Cari nama/bagian..." class="text-xs pl-8 pr-4 py-2 w-full sm:w-44 luxury-input rounded-xl">
                                 </div>
                             </div>
                         </div>
@@ -374,8 +383,8 @@
                                     <tr>
                                         <th class="px-6 py-4">Waktu</th>
                                         <th class="px-6 py-4">Nama</th>
-                                        <th class="px-6 py-4">Bagian / Jabatan</th>
-                                        <th class="px-6 py-4 text-center">Status</th>
+                                        <th class="px-6 py-4">Status & Bagian</th>
+                                        <th class="px-6 py-4 text-center">Status Absen</th>
                                         <th class="px-6 py-4">Keterangan</th>
                                         <th class="px-6 py-4 text-center">Aksi</th>
                                     </tr>
@@ -420,22 +429,22 @@
                     </div>
                     
                     <div id="scan-result-box" class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider hidden">
-                        Berhasil Absen: <span id="scanned-guru-name">-</span> (<span id="scanned-bagian-name">-</span>)
+                        Berhasil Absen: <span id="scanned-guru-name">-</span> (<span id="scanned-status-name">-</span> - <span id="scanned-bagian-name">-</span>)
                     </div>
                 </div>
 
-                <!-- Section Dashboard Guru / Staf (Fitur Edit Nama & Jabatan/Bagian) -->
+                <!-- Section Dashboard Guru / Staf (Fitur Edit Nama, Status & Bagian) -->
                 <div id="section-guru" class="hidden space-y-5 fade-in pb-10">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
                         
-                        <!-- Panel Edit Profil (Nama & Bagian: GURU, TEHNIK, TU, PERPUSTAKAAN) -->
+                        <!-- Panel Edit Profil (Nama, Status: GURU/TENDIK, Bagian: TU, PERPUSTAKAAN, LITERASI, Input Manual) -->
                         <div class="luxury-card p-6 md:p-8 rounded-[2rem] shadow-2xl border border-[#BF953F]/25 relative flex flex-col justify-between">
                             <div>
                                 <h3 class="text-lg font-black font-luxury text-white mb-2 uppercase tracking-wider flex items-center gap-2">
                                     <i class="fa-solid fa-user-pen text-[#BF953F]"></i>
-                                    <span class="gold-text-gradient">Edit Profil & Bagian</span>
+                                    <span class="gold-text-gradient">Edit Profil, Status & Bagian</span>
                                 </h3>
-                                <p class="text-xs text-gray-400 mb-6">Perbarui nama lengkap dan sesuaikan bagian Anda (TU, Perpustakaan, Guru, atau Tehnik).</p>
+                                <p class="text-xs text-gray-400 mb-6">Perbarui nama lengkap, tentukan status, dan sesuaikan bagian Anda.</p>
                                 
                                 <form id="edit-profile-form" class="space-y-4 mb-6">
                                     <div>
@@ -443,13 +452,21 @@
                                         <input type="text" id="edit-nama-input" class="w-full px-4 py-3 luxury-input rounded-xl text-xs font-bold text-white uppercase" required>
                                     </div>
                                     <div>
-                                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block">Bagian / Jabatan</label>
-                                        <select id="edit-bagian-input" class="w-full px-4 py-3 luxury-input rounded-xl text-xs font-bold text-white bg-[#121214]" required>
+                                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block">Status</label>
+                                        <select id="edit-status-input" class="w-full px-4 py-3 luxury-input rounded-xl text-xs font-bold text-white bg-[#121214]" required>
                                             <option value="GURU">GURU</option>
-                                            <option value="TEHNIK">TEHNIK</option>
-                                            <option value="TU">TU</option>
-                                            <option value="PERPUSTAKAAN">PERPUSTAKAAN</option>
+                                            <option value="TENDIK">TENDIK</option>
                                         </select>
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block">Bagian</label>
+                                        <select id="edit-bagian-input" onchange="toggleManualInput('edit-bagian-input', 'edit-bagian-manual')" class="w-full px-4 py-3 luxury-input rounded-xl text-xs font-bold text-white bg-[#121214]" required>
+                                            <option value="TU">TU (Tata Usaha)</option>
+                                            <option value="PERPUSTAKAAN">PERPUSTAKAAN</option>
+                                            <option value="LITERASI">LITERASI</option>
+                                            <option value="LAINNYA">LAINNYA (INPUT MANUAL)</option>
+                                        </select>
+                                        <input type="text" id="edit-bagian-manual" class="w-full px-4 py-3 luxury-input rounded-xl text-xs font-bold text-white uppercase mt-2 hidden" placeholder="Masukkan Bagian Manual...">
                                     </div>
                                     <button type="submit" id="btn-save-profile" class="w-full py-3 bg-[#BF953F] hover:bg-[#AA7C11] text-black font-black rounded-xl text-xs uppercase tracking-widest shadow-lg transition-all">
                                         Simpan Perubahan Profil
@@ -476,7 +493,8 @@
                             <div id="guru-barcode-preview-box" class="hidden p-6 rounded-2xl bg-black/50 border border-[#BF953F]/30 text-center space-y-3">
                                 <h4 class="font-luxury font-black text-sm gold-text-gradient uppercase">Barcode Presensi</h4>
                                 <p id="guru-card-name-text" class="font-bold text-white text-xs uppercase"></p>
-                                <p id="guru-card-bagian-text" class="font-bold text-[#BF953F] text-[10px] uppercase"></p>
+                                <p id="guru-card-status-text" class="font-bold text-[#BF953F] text-[10px] uppercase"></p>
+                                <p id="guru-card-bagian-text" class="font-bold text-gray-300 text-[10px] uppercase"></p>
                                 <div id="guru-qrcode-render" class="bg-white p-3 rounded-xl inline-block mx-auto shadow-xl"></div>
                                 <div>
                                     <button onclick="printMyBarcode()" class="px-5 py-2.5 bg-[#BF953F] hover:bg-[#AA7C11] text-black font-bold rounded-xl text-xs uppercase tracking-widest shadow-lg">
@@ -554,7 +572,7 @@
                                 <thead class="bg-[#16161a] sticky top-0 text-[9px] font-black text-gray-400 uppercase tracking-widest border-b border-white/5 z-10">
                                     <tr>
                                         <th class="px-4 py-3">Nama Lengkap</th>
-                                        <th class="px-4 py-3">Bagian</th>
+                                        <th class="px-4 py-3">Status & Bagian</th>
                                         <th class="px-4 py-3">Email / NIP</th>
                                         <th class="px-4 py-3 text-center">Status Akses</th>
                                         <th class="px-4 py-3 text-center">Aksi</th>
@@ -568,7 +586,7 @@
 
                     <div class="luxury-card p-6 md:p-8 rounded-[2.5rem] shadow-2xl border border-[#BF953F]/20 space-y-4">
                         <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                            <h4 class="font-black text-white text-sm uppercase tracking-widest">Daftar Kartu & QR Code (TU, Perpus, Guru, Teknik)</h4>
+                            <h4 class="font-black text-white text-sm uppercase tracking-widest">Daftar Kartu & QR Code (TU, Perpustakaan, Literasi, dll)</h4>
                             <button onclick="printAllBarcodes()" class="px-5 py-3 gold-bg-gradient text-black font-black rounded-xl text-xs uppercase tracking-widest shadow-lg flex items-center gap-2 active-scale">
                                 <i class="fa-solid fa-print"></i>
                                 <span>Cetak Seluruh Barcode</span>
@@ -639,7 +657,8 @@
             role: localStorage.getItem('guru_role'),
             email: localStorage.getItem('guru_email'),
             photoURL: localStorage.getItem('guru_photo'),
-            bagian: localStorage.getItem('guru_bagian') || 'GURU',
+            status_opsi: localStorage.getItem('guru_status_opsi') || 'GURU',
+            bagian: localStorage.getItem('guru_bagian') || 'TU',
             uid: localStorage.getItem('guru_uid')
         };
         let monitorData = [];
@@ -653,10 +672,30 @@
         let isInitialLoad = true;
         let activeScannerType = 'camera';
 
+        window.toggleManualInput = (selectId, inputId) => {
+            const selectEl = document.getElementById(selectId);
+            const inputEl = document.getElementById(inputId);
+            if(selectEl.value === 'LAINNYA') {
+                inputEl.classList.remove('hidden');
+                inputEl.focus();
+            } else {
+                inputEl.classList.add('hidden');
+            }
+        };
+
+        function getSelectedBagianValue(selectId, inputId) {
+            const selectEl = document.getElementById(selectId);
+            const inputEl = document.getElementById(inputId);
+            if (selectEl.value === 'LAINNYA') {
+                return inputEl.value.trim().toUpperCase() || 'TU';
+            }
+            return selectEl.value;
+        }
+
         function playSpeechAnnouncement(nama, bagian, status) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                let text = `Kehadiran tercatat untuk ${nama} dari bagian ${bagian}, status ${status}.`;
+                let text = `Kehadiran tercatat untuk ${nama} bagian ${bagian}, status ${status}.`;
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'id-ID';
                 window.speechSynthesis.speak(utterance);
@@ -693,7 +732,8 @@
                             role: userData.role === 'admin' ? 'Admin' : 'Guru',
                             email: email,
                             photoURL: user.photoURL || null,
-                            bagian: userData.bagian || 'GURU',
+                            status_opsi: userData.status_opsi || 'GURU',
+                            bagian: userData.bagian || 'TU',
                             uid: userDocData.id
                         };
                         
@@ -715,6 +755,7 @@
             localStorage.setItem('guru_user', session.user);
             localStorage.setItem('guru_role', session.role);
             localStorage.setItem('guru_email', session.email);
+            localStorage.setItem('guru_status_opsi', session.status_opsi);
             localStorage.setItem('guru_bagian', session.bagian);
             if(session.uid) localStorage.setItem('guru_uid', session.uid);
             if(session.photoURL) localStorage.setItem('guru_photo', session.photoURL);
@@ -752,13 +793,14 @@
 
         window.handleSelfRegister = async () => {
             const name = document.getElementById('self-reg-name').value.trim();
-            const bagian = document.getElementById('self-reg-bagian').value;
+            const status_opsi = document.getElementById('self-reg-status-opsi').value;
+            const bagian = getSelectedBagianValue('self-reg-bagian', 'self-reg-bagian-manual');
             const email = document.getElementById('self-reg-email').value.trim().toLowerCase();
             const nis = document.getElementById('self-reg-nis').value.trim();
             const pass = document.getElementById('self-reg-pass').value.trim();
             const btnReg = document.getElementById('btn-self-reg');
 
-            if (!name || !email || !nis || !pass) {
+            if (!name || !email || !nis || !pass || !bagian) {
                 return showToast("Semua kolom wajib diisi!", "border-rose-500/30 bg-rose-950/90 text-rose-400");
             }
 
@@ -778,6 +820,7 @@
                     nama: name,
                     email: email,
                     nip: nis,
+                    status_opsi: status_opsi,
                     bagian: bagian,
                     role: "guru",
                     status: "pending",
@@ -787,6 +830,7 @@
                 await addDoc(collection(db, ...teachersCollectionPath), {
                     name: name,
                     nis: nis,
+                    status_opsi: status_opsi,
                     bagian: bagian,
                     email: email,
                     created_at: serverTimestamp()
@@ -827,7 +871,8 @@
                         role: userData.role === "admin" ? "Admin" : "Guru",
                         email: email,
                         photoURL: user.photoURL,
-                        bagian: userData.bagian || 'GURU',
+                        status_opsi: userData.status_opsi || 'GURU',
+                        bagian: userData.bagian || 'TU',
                         uid: userDoc.id
                     };
                 } else {
@@ -836,7 +881,8 @@
                         nama: user.displayName || "User",
                         email: email,
                         nip: email.split('@')[0],
-                        bagian: "GURU",
+                        status_opsi: "GURU",
+                        bagian: "TU",
                         role: "guru",
                         status: "pending",
                         createdAt: serverTimestamp()
@@ -845,7 +891,8 @@
                     await addDoc(collection(db, ...teachersCollectionPath), {
                         name: user.displayName || "User",
                         nis: email.split('@')[0],
-                        bagian: "GURU",
+                        status_opsi: "GURU",
+                        bagian: "TU",
                         email: email,
                         created_at: serverTimestamp()
                     });
@@ -909,7 +956,8 @@
                         role: userData.role === 'admin' ? 'Admin' : 'Guru', 
                         email: userData.email || user.email, 
                         photoURL: null,
-                        bagian: userData.bagian || 'GURU',
+                        status_opsi: userData.status_opsi || 'GURU',
+                        bagian: userData.bagian || 'TU',
                         uid: userDocSnap.id
                     };
 
@@ -930,7 +978,7 @@
             document.getElementById('app-section').classList.remove('hidden');
             
             document.getElementById('display-user').innerText = session.user;
-            document.getElementById('role-badge').innerText = session.role === 'Admin' ? 'Administrator' : session.bagian;
+            document.getElementById('role-badge').innerText = session.role === 'Admin' ? 'Administrator' : `${session.status_opsi} (${session.bagian})`;
             
             if(document.getElementById('display-email')) {
                 document.getElementById('display-email').innerText = session.email || '';
@@ -957,34 +1005,59 @@
                 if(document.getElementById('edit-nama-input')) {
                     document.getElementById('edit-nama-input').value = session.user;
                 }
-                if(document.getElementById('edit-bagian-input')) {
-                    document.getElementById('edit-bagian-input').value = session.bagian;
+                if(document.getElementById('edit-status-input')) {
+                    document.getElementById('edit-status-input').value = session.status_opsi || 'GURU';
+                }
+                if(document.getElementById('edit-[#121214]')) {
+                    const editBagianSelect = document.getElementById('edit-bagian-input');
+                    const standardOptions = ['TU', 'PERPUSTAKAAN', 'LITERASI'];
+                    if (standardOptions.includes(session.bagian)) {
+                        editBagianSelect.value = session.bagian;
+                    } else {
+                        editBagianSelect.value = 'LAINNYA';
+                        document.getElementById('edit-bagian-manual').classList.remove('hidden');
+                        document.getElementById('edit-bagian-manual').value = session.bagian;
+                    }
                 }
             }
         }
 
-        // Simpan Perubahan Profil Guru (Nama & Bagian)
+        // Simpan Perubahan Profil Guru (Nama, Status & Bagian)
         document.getElementById('edit-profile-form').onsubmit = async (e) => {
             e.preventDefault();
             const newName = document.getElementById('edit-nama-input').value.trim();
-            const newBagian = document.getElementById('edit-bagian-input').value;
+            const newStatus = document.getElementById('edit-status-input').value;
+            const newBagian = getSelectedBagianValue('edit-bagian-input', 'edit-bagian-manual');
 
-            if(!newName) return showToast("Nama tidak boleh kosong!", "border-rose-500/30 bg-rose-950/90 text-rose-400");
+            if(!newName || !newBagian) return showToast("Semua data wajib diisi!", "border-rose-500/30 bg-rose-950/90 text-rose-400");
 
             try {
                 if(session.uid) {
                     await updateDoc(doc(db, "users", session.uid), {
                         nama: newName,
+                        status_opsi: newStatus,
+                        bagian: newBagian
+                    });
+                }
+
+                // Update juga koleksi guru_terdaftar
+                const qTeacher = query(collection(db, ...teachersCollectionPath), where("email", "==", session.email));
+                const snapTeacher = await getDocs(qTeacher);
+                if (!snapTeacher.empty) {
+                    await updateDoc(doc(db, ...teachersCollectionPath, snapTeacher.docs[0].id), {
+                        name: newName,
+                        status_opsi: newStatus,
                         bagian: newBagian
                     });
                 }
                 
                 session.user = newName;
+                session.status_opsi = newStatus;
                 session.bagian = newBagian;
                 saveSessionToLocalStorage();
 
                 document.getElementById('display-user').innerText = newName;
-                document.getElementById('role-badge').innerText = newBagian;
+                document.getElementById('role-badge').innerText = `${newStatus} (${newBagian})`;
 
                 showToast("Profil berhasil diperbarui!", "border-emerald-500/30 bg-emerald-950/90 text-emerald-400");
             } catch(err) {
@@ -1009,7 +1082,7 @@
                     return `
                         <div class="p-3 bg-black/40 border border-[#BF953F]/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-2">
                             <div>
-                                <p class="text-xs font-bold text-white">${data.nama} <span class="text-[#BF953F]">[${data.bagian || 'GURU'}]</span></p>
+                                <p class="text-xs font-bold text-white">${data.nama} <span class="text-[#BF953F]">[${data.status_opsi || 'GURU'} - ${data.bagian || 'TU'}]</span></p>
                                 <p class="text-[10px] text-gray-400">${data.email || data.nip || '-'}</p>
                             </div>
                             <div class="flex items-center gap-2">
@@ -1135,14 +1208,16 @@
             const jamStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).replace(/\./g, ':');
             const fullWaktuStamp = `${hariIni}, ${tanggalStr} - Pukul ${jamStr}`;
             
-            // Cocokkan dengan data terdaftar untuk mendapatkan bagian (TU, PERPUSTAKAAN, GURU, TEHNIK)
+            // Cocokkan dengan data terdaftar untuk mendapatkan Status dan Bagian (TU, PERPUSTAKAAN, LITERASI, dll)
             let foundUser = registeredUsersCloud.find(g => (g.name && g.name.toLowerCase() === scannedName.toLowerCase()) || g.nis === scannedName);
-            const bagianPilih = foundUser ? foundUser.bagian : 'GURU';
+            const statusOpsiPilih = foundUser ? (foundUser.status_opsi || 'GURU') : 'GURU';
+            const bagianPilih = foundUser ? (foundUser.bagian || 'TU') : 'TU';
             const namaAsli = foundUser ? foundUser.name : scannedName;
 
             try {
                 await addDoc(collection(db, ...publicCollectionPath), {
                     nama: namaAsli,
+                    status_opsi: statusOpsiPilih,
                     jabatan: bagianPilih,
                     status: 'Hadir',
                     catatan: 'Scan Barcode',
@@ -1154,9 +1229,10 @@
 
                 document.getElementById('scan-result-box').classList.remove('hidden');
                 document.getElementById('scanned-guru-name').innerText = namaAsli;
+                document.getElementById('scanned-status-name').innerText = statusOpsiPilih;
                 document.getElementById('scanned-bagian-name').innerText = bagianPilih;
 
-                showToast(`Absen Hadir: ${namaAsli} (${bagianPilih})`, "border-emerald-500/30 bg-emerald-950/90 text-emerald-400");
+                showToast(`Absen Hadir: ${namaAsli} (${statusOpsiPilih} - ${bagianPilih})`, "border-emerald-500/30 bg-emerald-950/90 text-emerald-400");
                 
                 setTimeout(() => {
                     document.getElementById('scan-result-box').classList.add('hidden');
@@ -1179,7 +1255,7 @@
                             const newData = change.doc.data();
                             if (!processedDocIds.has(change.doc.id)) {
                                 processedDocIds.add(change.doc.id);
-                                playSpeechAnnouncement(newData.nama, newData.jabatan || 'GURU', newData.status);
+                                playSpeechAnnouncement(newData.nama, newData.jabatan || 'TU', newData.status);
                             }
                         }
                     });
@@ -1204,7 +1280,10 @@
                     <tr class="hover:bg-white/[0.02] transition-colors border-b border-white/5">
                         <td class="px-6 py-4 text-[11px] font-bold text-[#BF953F] font-mono">${item.waktu_lengkap || item.waktu}</td>
                         <td class="px-6 py-4 font-black text-white uppercase text-xs tracking-wider">${item.nama}</td>
-                        <td class="px-6 py-4 text-xs font-semibold text-gray-300 uppercase"><span class="px-2 py-0.5 rounded bg-[#BF953F]/10 text-[#BF953F] border border-[#BF953F]/30">${item.jabatan || 'GURU'}</span></td>
+                        <td class="px-6 py-4 text-xs font-semibold text-gray-300 uppercase">
+                            <span class="px-2 py-0.5 rounded bg-[#BF953F]/10 text-[#BF953F] border border-[#BF953F]/30">${item.status_opsi || 'GURU'}</span>
+                            <span class="px-2 py-0.5 rounded bg-white/10 text-white border border-white/20 ml-1">${item.jabatan || 'TU'}</span>
+                        </td>
                         <td class="px-6 py-4 text-center">
                             <span class="px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border ${getStatusClass(item.status)}">${item.status}</span>
                         </td>
@@ -1233,7 +1312,7 @@
                 tbody.innerHTML += `
                     <tr class="hover:bg-white/[0.02] transition-colors border-b border-white/5">
                         <td class="px-4 py-3 font-bold text-white uppercase">${u.nama || '-'}</td>
-                        <td class="px-4 py-3 text-[#BF953F] font-bold uppercase text-[10px]">${u.bagian || 'GURU'}</td>
+                        <td class="px-4 py-3 text-[#BF953F] font-bold uppercase text-[10px]">${u.status_opsi || 'GURU'} - ${u.bagian || 'TU'}</td>
                         <td class="px-4 py-3 text-gray-300 font-mono">${u.email || u.nip || '-'}</td>
                         <td class="px-4 py-3 text-center">
                             <span class="px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider border ${isApproved ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400' : 'border-amber-500/30 bg-amber-500/10 text-amber-400'}">${u.status || 'pending'}</span>
@@ -1284,6 +1363,7 @@
             const previewBox = document.getElementById('guru-barcode-preview-box');
             const qrContainer = document.getElementById('guru-qrcode-render');
             document.getElementById('guru-card-name-text').innerText = session.user;
+            document.getElementById('guru-card-status-text').innerText = session.status_opsi;
             document.getElementById('guru-card-bagian-text').innerText = session.bagian;
 
             qrContainer.innerHTML = '';
@@ -1298,7 +1378,7 @@
         };
 
         window.printMyBarcode = () => {
-            printSingleCard(session.user, session.email || "ID", session.bagian);
+            printSingleCard(session.user, session.email || "ID", session.status_opsi, session.bagian);
         };
 
         window.deleteRecord = async (id) => {
@@ -1334,7 +1414,8 @@
             try {
                 await addDoc(collection(db, ...publicCollectionPath), {
                     nama: session.user,
-                    jabatan: session.bagian,
+                    status_opsi: session.status_opsi || 'GURU',
+                    jabatan: session.bagian || 'TU',
                     status: status,
                     catatan: catatan,
                     waktu_lengkap: fullWaktuStamp,
@@ -1359,11 +1440,11 @@
             doc.setFontSize(14);
             doc.text("SMP NEGERI 4 MONTA - REKAP PRESENSI", 105, 15, { align: "center" });
             
-            const rows = filteredMonitorData.map(item => [item.waktu_lengkap || item.waktu, item.nama, item.jabatan || 'GURU', item.status, item.catatan || "-"]);
+            const rows = filteredMonitorData.map(item => [item.waktu_lengkap || item.waktu, item.nama, `${item.status_opsi || 'GURU'} - ${item.jabatan || 'TU'}`, item.status, item.catatan || "-"]);
             
             doc.autoTable({ 
                 startY: 25, 
-                head: [['Waktu', 'Nama', 'Bagian', 'Status', 'Catatan']], 
+                head: [['Waktu', 'Nama', 'Status & Bagian', 'Status', 'Catatan']], 
                 body: rows,
                 headStyles: { fillColor: [191, 149, 63] }
             });
@@ -1378,11 +1459,11 @@
                 <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between">
                     <div>
                         <h5 class="font-black text-white text-xs uppercase">${g.name}</h5>
-                        <p class="text-[9px] text-[#BF953F] font-bold uppercase mt-0.5">${g.bagian || 'GURU'}</p>
+                        <p class="text-[9px] text-[#BF953F] font-bold uppercase mt-0.5">${g.status_opsi || 'GURU'} - ${g.bagian || 'TU'}</p>
                         <p class="text-[9px] text-gray-400 font-mono mt-0.5">ID: ${g.nis}</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button onclick="printSingleCard('${g.name}', '${g.nis}', '${g.bagian || 'GURU'}')" class="px-3 py-2 bg-[#BF953F]/10 hover:bg-[#BF953F]/20 text-[#BF953F] border border-[#BF953F]/30 rounded-xl text-[10px] font-black uppercase">
+                        <button onclick="printSingleCard('${g.name}', '${g.nis}', '${g.status_opsi || 'GURU'}', '${g.bagian || 'TU'}')" class="px-3 py-2 bg-[#BF953F]/10 hover:bg-[#BF953F]/20 text-[#BF953F] border border-[#BF953F]/30 rounded-xl text-[10px] font-black uppercase">
                             Cetak QR
                         </button>
                         <button onclick="deleteTeacherBarcode('${g.id}', '${g.name}')" class="px-3 py-2 bg-rose-950/30 text-rose-400 border border-rose-500/30 rounded-xl text-[10px] font-black uppercase">
@@ -1393,7 +1474,7 @@
             `).join('');
         }
 
-        window.printSingleCard = (name, nis, bagian) => {
+        window.printSingleCard = (name, nis, status_opsi, bagian) => {
             const printableArea = document.getElementById('printable-area');
             printableArea.innerHTML = `
                 <div style="text-align: center; padding: 30px; font-family: 'Plus Jakarta Sans', sans-serif; border: 2px solid #000; width: 320px; margin: 40px auto; border-radius: 12px; background: #fff; color: #000;">
@@ -1401,7 +1482,8 @@
                     <p style="margin: 0 0 15px 0; font-size: 10px; text-transform: uppercase; font-weight: 700;">KARTU PRESENSI</p>
                     <div id="print-single-qr" style="display: inline-block; margin: 10px 0; background: #fff; padding: 5px;"></div>
                     <h4 style="margin: 15px 0 3px 0; font-size: 15px; font-weight: 900; text-transform: uppercase;">${name}</h4>
-                    <p style="margin: 0 0 5px 0; font-size: 11px; font-weight: 700; color: #b38728; text-transform: uppercase;">${bagian}</p>
+                    <p style="margin: 0 0 2px 0; font-size: 11px; font-weight: 700; color: #b38728; text-transform: uppercase;">${status_opsi}</p>
+                    <p style="margin: 0 0 5px 0; font-size: 10px; font-weight: 700; color: #555; text-transform: uppercase;">BAGIAN: ${bagian}</p>
                     <p style="margin: 0; font-size: 10px; font-family: monospace;">ID: ${nis}</p>
                 </div>
             `;
@@ -1417,7 +1499,7 @@
             const printableArea = document.getElementById('printable-area');
             printableArea.innerHTML = `
                 <div style="padding: 20px; font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #000;">
-                    <h2 style="text-align: center; margin-bottom: 25px; font-size: 18px; font-weight: 900; text-transform: uppercase;">KARTU PRESENSI - TU, PERPUSTAKAAN, GURU & TEHNIK</h2>
+                    <h2 style="text-align: center; margin-bottom: 25px; font-size: 18px; font-weight: 900; text-transform: uppercase;">KARTU PRESENSI - GURU & TENDIK</h2>
                     <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
                         ${registeredUsersCloud.map((g, index) => `
                             <div style="text-align: center; padding: 20px; border: 2px solid #000; width: 260px; border-radius: 10px; page-break-inside: avoid; background: #fff;">
@@ -1425,7 +1507,8 @@
                                 <p style="margin: 0 0 10px 0; font-size: 9px; text-transform: uppercase; font-weight: 700;">KARTU PRESENSI</p>
                                 <div id="batch-qr-${index}" style="display: inline-block; margin: 5px 0; background: #fff; padding: 5px;"></div>
                                 <h5 style="margin: 10px 0 2px 0; font-size: 13px; font-weight: 900; text-transform: uppercase;">${g.name}</h5>
-                                <p style="margin: 0 0 3px 0; font-size: 10px; font-weight: 700; color: #b38728; text-transform: uppercase;">${g.bagian || 'GURU'}</p>
+                                <p style="margin: 0 0 2px 0; font-size: 10px; font-weight: 700; color: #b38728; text-transform: uppercase;">${g.status_opsi || 'GURU'}</p>
+                                <p style="margin: 0 0 3px 0; font-size: 9px; font-weight: 700; color: #555; text-transform: uppercase;">BAGIAN: ${g.bagian || 'TU'}</p>
                                 <p style="margin: 0; font-size: 9px; font-family: monospace;">ID: ${g.nis}</p>
                             </div>
                         `).join('')}
@@ -1451,12 +1534,16 @@
             const now = new Date();
 
             filteredMonitorData = monitorData.filter(item => {
-                const matchSearch = (item.nama && item.nama.toLowerCase().includes(searchVal)) || (item.jabatan && item.jabatan.toLowerCase().includes(searchVal));
+                const matchSearch = (item.nama && item.nama.toLowerCase().includes(searchVal)) || 
+                                    (item.jabatan && item.jabatan.toLowerCase().includes(searchVal)) || 
+                                    (item.status_opsi && item.status_opsi.toLowerCase().includes(searchVal));
                 
-                // Filter berdasarkan bagian (TU, PERPUSTAKAAN, GURU, TEHNIK)
+                // Filter pengelompokan berdasarkan Bagian / Status
                 let matchBagian = true;
                 if (filterBagianVal !== 'semua') {
-                    matchBagian = item.jabatan && item.jabatan.toUpperCase() === filterBagianVal.toUpperCase();
+                    const itemBagian = (item.jabatan || '').toUpperCase();
+                    const itemStatus = (item.status_opsi || '').toUpperCase();
+                    matchBagian = (itemBagian === filterBagianVal.toUpperCase()) || (itemStatus === filterBagianVal.toUpperCase());
                 }
 
                 let matchPeriod = true;
@@ -1487,16 +1574,18 @@
             const container = document.getElementById('guru-card-container');
             if(!container) return;
 
-            const filtered = registeredUsersCloud.filter(g => (g.name && g.name.toLowerCase().includes(val)) || (g.bagian && g.bagian.toLowerCase().includes(val)));
+            const filtered = registeredUsersCloud.filter(g => (g.name && g.name.toLowerCase().includes(val)) || 
+                                                              (g.bagian && g.bagian.toLowerCase().includes(val)) || 
+                                                              (g.status_opsi && g.status_opsi.toLowerCase().includes(val)));
             container.innerHTML = filtered.map(g => `
                 <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between">
                     <div>
                         <h5 class="font-black text-white text-xs uppercase">${g.name}</h5>
-                        <p class="text-[9px] text-[#BF953F] font-bold uppercase mt-0.5">${g.bagian || 'GURU'}</p>
+                        <p class="text-[9px] text-[#BF953F] font-bold uppercase mt-0.5">${g.status_opsi || 'GURU'} - ${g.bagian || 'TU'}</p>
                         <p class="text-[9px] text-gray-400 font-mono mt-0.5">ID: ${g.nis}</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button onclick="printSingleCard('${g.name}', '${g.nis}', '${g.bagian || 'GURU'}')" class="px-3 py-2 bg-[#BF953F]/10 text-[#BF953F] border border-[#BF953F]/30 rounded-xl text-[10px] font-black uppercase">
+                        <button onclick="printSingleCard('${g.name}', '${g.nis}', '${g.status_opsi || 'GURU'}', '${g.bagian || 'TU'}')" class="px-3 py-2 bg-[#BF953F]/10 text-[#BF953F] border border-[#BF953F]/30 rounded-xl text-[10px] font-black uppercase">
                             Cetak QR
                         </button>
                         <button onclick="deleteTeacherBarcode('${g.id}', '${g.name}')" class="px-3 py-2 bg-rose-950/30 text-rose-400 border border-rose-500/30 rounded-xl text-[10px] font-black uppercase">
@@ -1516,7 +1605,7 @@
         window.handleLogout = async () => {
             stopScanner();
             localStorage.clear();
-            session = { user: null, role: null, email: null, photoURL: null, bagian: null, uid: null };
+            session = { user: null, role: null, email: null, photoURL: null, status_opsi: null, bagian: null, uid: null };
             document.getElementById('app-section').classList.add('hidden');
             document.getElementById('self-reg-section').classList.add('hidden');
             document.getElementById('auth-section').classList.remove('hidden');
